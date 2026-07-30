@@ -1,0 +1,4313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bizz Manager — Business Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* =============================================
+   BIZFLOW — STYLES
+   ============================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1117;
+  --bg2: #161b27;
+  --bg3: #1e2535;
+  --surface: #1e2535;
+  --surface2: #252d40;
+  --border: #2a3347;
+  --border2: #334060;
+  --text: #e8eaf2;
+  --text2: #8b93a8;
+  --text3: #5c6479;
+  --accent: #4f7bff;
+  --accent2: #3b62e0;
+  --accent-glow: rgba(79,123,255,0.18);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.15);
+  --purple: #a855f7;
+  --purple-dim: rgba(168,85,247,0.15);
+  --orange: #f59e0b;
+  --orange-dim: rgba(245,158,11,0.15);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.15);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.35);
+  --sidebar-w: 240px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --transition: 0.18s ease;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ============ AUTH ============ */
+
+.auth-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at 60% 10%, rgba(79,123,255,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 10% 80%, rgba(168,85,247,0.08) 0%, transparent 50%),
+              var(--bg);
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.brand-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.logo-icon {
+  font-size: 24px;
+  color: var(--accent);
+}
+
+.brand-tagline {
+  color: var(--text2);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow);
+  display: none;
+}
+
+.auth-card.active { display: block; }
+
+.auth-card h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.auth-sub {
+  color: var(--text2);
+  margin-bottom: 24px;
+  font-size: 13px;
+}
+
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.auth-links a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: opacity var(--transition);
+}
+.auth-links a:hover { opacity: 0.75; }
+
+/* ============ FORMS ============ */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238b93a8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text3); }
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 44px; }
+.pw-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  color: var(--text3);
+}
+
+.form-error {
+  background: var(--red-dim);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #fca5a5;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.form-success {
+  background: var(--green-dim);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: #86efac;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.hidden { display: none !important; }
+
+.total-preview {
+  background: var(--bg3);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--text2);
+  font-size: 13px;
+  border: 1px solid var(--border);
+}
+
+.total-preview strong { color: var(--green); font-size: 15px; }
+
+/* ============ BUTTONS ============ */
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-primary:hover {
+  background: var(--accent2);
+  box-shadow: 0 4px 16px rgba(79,123,255,0.4);
+  transform: translateY(-1px);
+}
+.btn-primary.full { width: 100%; padding: 13px; margin-top: 4px; }
+
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-secondary:hover { background: var(--bg3); border-color: var(--accent); }
+
+.btn-sm {
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+.btn-sm:hover { background: var(--bg3); color: var(--text); }
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background var(--transition);
+  color: var(--text2);
+}
+.btn-icon:hover { background: var(--bg3); color: var(--text); }
+
+.btn-icon.danger:hover { color: var(--red); background: var(--red-dim); }
+
+.btn-logout {
+  margin: auto 16px 20px;
+  background: var(--red-dim);
+  color: #fca5a5;
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  width: calc(100% - 32px);
+  transition: all var(--transition);
+}
+.btn-logout:hover { background: rgba(239,68,68,0.25); }
+
+/* ============ APP LAYOUT ============ */
+
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 200;
+  transition: transform 0.25s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-close {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-biz {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 1px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active { background: var(--accent-glow); color: var(--accent); }
+
+.nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+}
+
+/* MAIN */
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: calc(100vw - var(--sidebar-w));
+  overflow-x: hidden;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.top-date {
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* PAGES */
+.page { display: none; padding: 24px; }
+.page.active { display: block; }
+
+.page-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stats-grid.mini { grid-template-columns: repeat(3, 1fr); }
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.accent-blue::before { background: linear-gradient(90deg, var(--accent), #818cf8); }
+.accent-green::before { background: linear-gradient(90deg, var(--green), #86efac); }
+.accent-purple::before { background: linear-gradient(90deg, var(--purple), #c4b5fd); }
+.accent-orange::before { background: linear-gradient(90deg, var(--orange), #fcd34d); }
+
+.stat-label { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.stat-value { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text); }
+.stat-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-header h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* TABLE */
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: var(--bg2);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--bg3); }
+
+.empty-row { color: var(--text3); text-align: center; padding: 28px !important; }
+
+.search-input {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 7px 12px;
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  width: 200px;
+  transition: border-color var(--transition);
+}
+.search-input:focus { border-color: var(--accent); }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-orange { background: var(--orange-dim); color: var(--orange); }
+.badge-red { background: var(--red-dim); color: #fca5a5; }
+.badge-blue { background: var(--accent-glow); color: var(--accent); }
+.accent-red { border-left: 3px solid var(--red); }
+
+/* --- Branch switcher --- */
+.branch-switcher {
+  margin: 10px 12px 0;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.branch-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+.branch-current:hover { background: var(--surface2); }
+.branch-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0;
+}
+.branch-current-name {
+  flex: 1; font-size: 13px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.branch-chevron { font-size: 11px; color: var(--text3); transition: transform 0.2s; }
+.branch-chevron.open { transform: rotate(180deg); }
+.branch-dropdown {
+  border-top: 1px solid var(--border);
+  display: none;
+  flex-direction: column;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.branch-dropdown.open { display: flex; }
+.branch-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; font-size: 13px; color: var(--text2);
+  cursor: pointer; transition: background 0.12s; border: none;
+  background: transparent; text-align: left; font-family: var(--font-body);
+  width: 100%;
+}
+.branch-option:hover { background: var(--surface2); color: var(--text); }
+.branch-option.active-branch { color: var(--accent); font-weight: 600; }
+.branch-option .b-check { font-size: 12px; margin-left: auto; color: var(--accent); }
+.branch-manage-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; font-size: 12px; color: var(--text3);
+  cursor: pointer; border-top: 1px solid var(--border);
+  background: transparent; border-left: none; border-right: none; border-bottom: none;
+  font-family: var(--font-body); width: 100%; transition: background 0.12s;
+}
+.branch-manage-btn:hover { background: var(--surface2); color: var(--text); }
+
+/* --- Branch manager modal content --- */
+.branch-list-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.branch-list-item:last-child { border-bottom: none; }
+.branch-list-name { flex: 1; font-size: 14px; color: var(--text); }
+.branch-list-type { font-size: 12px; color: var(--text3); }
+.branch-list-actions { display: flex; gap: 6px; }
+.branch-active-badge { font-size: 11px; background: var(--accent-glow); color: var(--accent); border-radius: 4px; padding: 2px 7px; }
+
+/* --- Cross-branch dashboard banner --- */
+.cross-branch-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--accent-glow); border: 1px solid rgba(79,123,255,0.2);
+  border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+}
+.cross-branch-bar p { font-size: 13px; color: var(--accent); font-weight: 500; }
+.cross-branch-bar span { font-size: 12px; color: var(--text2); }
+.cross-branch-btn {
+  font-size: 12px; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid var(--accent); background: transparent; color: var(--accent);
+  cursor: pointer; font-family: var(--font-body); transition: all 0.15s;
+}
+.cross-branch-btn:hover { background: var(--accent); color: #fff; }
+
+/* ============ MODALS ============ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.15s ease;
+}
+
+.modal-overlay:not(.hidden) { display: flex; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+
+.modal-header button {
+  background: none;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background var(--transition);
+}
+.modal-header button:hover { background: var(--bg3); }
+
+.modal-body { padding: 20px; }
+
+.modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============ CALCULATOR ============ */
+
+.calc-wrap {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.calculator {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.calc-display {
+  background: var(--bg2);
+  padding: 20px 20px 16px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+.calc-expr { font-size: 13px; color: var(--text3); min-height: 20px; }
+.calc-val {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.calc-btn {
+  background: var(--surface);
+  border: none;
+  padding: 18px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text);
+  transition: background var(--transition);
+}
+.calc-btn:hover { background: var(--surface2); }
+.calc-btn:active { background: var(--bg3); }
+.calc-btn.span2 { grid-column: span 2; }
+.calc-btn.btn-clear { color: var(--red); }
+.calc-btn.btn-op { color: var(--accent); }
+.calc-btn.btn-eq { background: var(--accent); color: #fff; }
+.calc-btn.btn-eq:hover { background: var(--accent2); }
+
+.calc-history {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#calc-history-list {
+  list-style: none;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+#calc-history-list li {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+}
+
+#calc-history-list li:last-child { border-bottom: none; }
+#calc-history-list li.empty-row { color: var(--text3); padding: 24px 16px; }
+
+/* ============ TOAST ============ */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: var(--shadow);
+  animation: slideInToast 0.25s ease;
+  max-width: 300px;
+}
+
+.toast.success { border-left: 3px solid var(--green); }
+.toast.error { border-left: 3px solid var(--red); }
+.toast.info { border-left: 3px solid var(--accent); }
+
+@keyframes slideInToast {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .dash-grid { grid-template-columns: 1fr; }
+  .calc-wrap { grid-template-columns: 1fr; }
+  .calculator { max-width: 320px; }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 260px;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-close { display: block; }
+  .main-content { margin-left: 0; max-width: 100vw; }
+  .hamburger { display: block; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid.mini { grid-template-columns: 1fr 1fr; }
+  .page { padding: 16px; }
+  .top-bar { padding: 14px 16px; }
+  .form-grid-2 { grid-template-columns: 1fr; }
+  .search-input { width: 140px; }
+  .stat-value { font-size: 18px; }
+  .page-actions { gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .auth-card { padding: 24px 18px; }
+  .calc-btn { padding: 15px; font-size: 16px; }
+  .calc-val { font-size: 28px; }
+  .modal { max-width: 100%; }
+}
+
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader-screen" style="
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:99999;
+  background:#0f1117;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:0;
+  font-family:'Space Grotesk',sans-serif;
+  overflow:hidden;
+  box-sizing:border-box;
+  padding:20px;
+">
+  <style>
+    @keyframes spinRing {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes pulseHex {
+      0%,100% { transform: scale(1);   opacity:1; }
+      50%      { transform: scale(1.15); opacity:0.75; }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes loaderBarFill {
+      from { width:0%; }
+      to   { width:100%; }
+    }
+    @keyframes fadeOutLoader {
+      from { opacity:1; }
+      to   { opacity:0; }
+    }
+    #loader-screen.hiding {
+      animation: fadeOutLoader 0.5s ease forwards;
+      pointer-events: none;
+    }
+    .loader-ring {
+      width:min(90px,22vw);height:min(90px,22vw);
+      border:3px solid rgba(79,123,255,0.15);
+      border-top:3px solid #4f7bff;
+      border-radius:50%;
+      animation: spinRing 1s linear infinite;
+      position:absolute;
+    }
+    .loader-ring-2 {
+      width:min(70px,17vw);height:min(70px,17vw);
+      border:2px solid rgba(168,85,247,0.15);
+      border-bottom:2px solid #a855f7;
+      border-radius:50%;
+      animation: spinRing 1.4s linear infinite reverse;
+      position:absolute;
+    }
+    .loader-hex {
+      font-size:28px;
+      color:#4f7bff;
+      animation: pulseHex 1.6s ease-in-out infinite;
+      position:relative;z-index:1;
+    }
+    .loader-rings-wrap {
+      position:relative;
+      width:min(90px,22vw);height:min(90px,22vw);
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:20px;
+      flex-shrink:0;
+    }
+    .loader-title {
+      font-size:clamp(20px,6vw,32px);font-weight:700;color:#e8eaf2;
+      letter-spacing:-0.5px;
+      animation: fadeUp 0.6s ease 0.2s both;
+      text-align:center;
+    }
+    .loader-title span { color:#4f7bff; }
+    .loader-bar-wrap {
+      width:min(200px,60vw);height:3px;
+      background:rgba(255,255,255,0.07);
+      border-radius:4px;
+      margin-top:24px;
+      overflow:hidden;
+      animation: fadeUp 0.5s ease 0.3s both;
+    }
+    .loader-bar {
+      height:100%;
+      background:linear-gradient(90deg,#4f7bff,#a855f7);
+      border-radius:4px;
+      animation: loaderBarFill 2.4s cubic-bezier(0.4,0,0.2,1) 0.4s both;
+    }
+    .loader-powered {
+      margin-top:16px;
+      font-size:clamp(9px,2.5vw,11px);
+      font-weight:500;
+      color:rgba(139,147,168,0.55);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      animation: fadeUp 0.5s ease 0.5s both;
+    }
+    .loader-powered strong {
+      color:rgba(139,147,168,0.9);
+      letter-spacing:2.5px;
+    }
+  </style>
+
+  <div class="loader-rings-wrap">
+    <div class="loader-ring"></div>
+    <div class="loader-ring-2"></div>
+    <div class="loader-hex">⬡</div>
+  </div>
+
+  <div class="loader-title">Bizz <span>Manager</span></div>
+
+  <div class="loader-bar-wrap">
+    <div class="loader-bar"></div>
+  </div>
+
+  <div class="loader-powered">Powered by &nbsp;<strong>Tech Anatomy</strong></div>
+</div>
+
+<script>
+  // Dismiss loader after 3 seconds
+  (function() {
+    var loader = document.getElementById('loader-screen');
+    // Allow clicking through immediately if user interacts
+    loader.addEventListener('click', function() {
+      loader.style.display = 'none';
+    });
+    setTimeout(function() {
+      loader.classList.add('hiding');
+      loader.style.pointerEvents = 'none';
+      setTimeout(function() {
+        loader.style.display = 'none';
+      }, 500);
+    }, 3000);
+  })();
+</script>
+
+
+<!-- AUTH SCREENS -->
+<div id="auth-screen" class="auth-wrapper">
+  <div class="auth-brand">
+    <div class="brand-logo"><span class="logo-icon">⬡</span> Bizz Manager</div>
+    <p class="brand-tagline">Smart management for growing businesses</p>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login-panel" class="auth-card active">
+    <h2>Welcome back</h2>
+    <p class="auth-sub">Sign in to your business account</p>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="login-email" placeholder="you@business.com" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="login-password" placeholder="••••••••" />
+        <button class="pw-toggle" onclick="togglePw('login-password',this)">👁</button>
+      </div>
+    </div>
+    <div id="login-error" class="form-error hidden"></div>
+    <button class="btn-primary full" onclick="handleLogin()">Sign In</button>
+    <div class="auth-links">
+      <a href="#" onclick="showPanel('recover-panel')">Forgot password?</a>
+      <a href="#" onclick="showPanel('register-panel')">Create account →</a>
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="register-panel" class="auth-card">
+    <h2>Create account</h2>
+    <p class="auth-sub">Set up your Bizz Manager workspace</p>
+    <div class="form-grid-2">
+      <div class="form-group">
+        <label>First name</label>
+        <input type="text" id="reg-firstname" placeholder="Jane" />
+      </div>
+      <div class="form-group">
+        <label>Last name</label>
+        <input type="text" id="reg-lastname" placeholder="Doe" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Business name</label>
+      <input type="text" id="reg-bizname" placeholder="Acme Ltd" />
+    </div>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="reg-email" placeholder="you@business.com" />
+    </div>
+    <div class="form-group">
+      <label>Business type</label>
+      <select id="reg-biztype">
+        <option value="">Select type</option>
+        <option>Retail</option>
+        <option>Restaurant / Food</option>
+        <option>Services</option>
+        <option>Manufacturing</option>
+        <option>Technology</option>
+        <option>Healthcare</option>
+        <option>Construction</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="reg-password" placeholder="Min 8 characters" />
+        <button class="pw-toggle" onclick="togglePw('reg-password',this)">👁</button>
+      </div>
+    </div>
+    <div id="reg-error" class="form-error hidden"></div>
+    <button class="btn-primary full" onclick="handleRegister()">Create Account</button>
+    <div class="auth-links">
+      <a href="#" onclick="showPanel('login-panel')">← Back to sign in</a>
+    </div>
+  </div>
+
+  <!-- RECOVER -->
+  <div id="recover-panel" class="auth-card">
+    <h2>Reset password</h2>
+    <p class="auth-sub">We'll send a recovery link to your email</p>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="recover-email" placeholder="you@business.com" />
+    </div>
+    <div id="recover-msg" class="form-success hidden"></div>
+    <button class="btn-primary full" onclick="handleRecover()">Send Reset Link</button>
+    <div class="auth-links">
+      <a href="#" onclick="showPanel('login-panel')">← Back to sign in</a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="app-wrapper hidden">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo"><span class="logo-icon">⬡</span> Bizz Manager</div>
+      <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebar-avatar">JD</div>
+      <div style="flex:1;min-width:0">
+        <div class="user-name" id="sidebar-name">Jane Doe</div>
+        <div class="user-biz" id="sidebar-biz" style="font-size:11px;color:var(--text3)">Loading…</div>
+      </div>
+    </div>
+
+    <!-- BRANCH SWITCHER -->
+    <div class="branch-switcher" id="branch-switcher">
+      <div class="branch-current" onclick="toggleBranchDropdown()">
+        <div class="branch-dot"></div>
+        <div class="branch-current-name" id="branch-current-label">Loading branch…</div>
+        <span class="branch-chevron" id="branch-chevron">▾</span>
+      </div>
+      <div class="branch-dropdown" id="branch-dropdown">
+        <div id="branch-options-list"></div>
+        <button class="branch-manage-btn" onclick="openBranchManager()">⚙ Manage branches</button>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" onclick="navigate('dashboard',this)"><span class="nav-icon">◈</span> Dashboard</a>
+      <a href="#" class="nav-item" onclick="navigate('inventory',this)"><span class="nav-icon">▦</span> Inventory</a>
+      <a href="#" class="nav-item" onclick="navigate('stock',this)"><span class="nav-icon">◫</span> Stock</a>
+      <a href="#" class="nav-item" onclick="navigate('sales',this)"><span class="nav-icon">◎</span> Sales</a>
+      <a href="#" class="nav-item" onclick="navigate('services',this)"><span class="nav-icon">◉</span> Services</a>
+      <a href="#" class="nav-item" onclick="navigate('employees',this)"><span class="nav-icon">◍</span> Employees</a>
+      <a href="#" class="nav-item" onclick="navigate('customers',this)"><span class="nav-icon">◐</span> Customers</a>
+      <a href="#" class="nav-item" onclick="navigate('expenses',this)"><span class="nav-icon">◑</span> Expenses</a>
+      <a href="#" class="nav-item" onclick="navigate('analytics',this)"><span class="nav-icon">◒</span> Analytics</a>
+      <a href="#" class="nav-item" onclick="navigate('calculator',this)"><span class="nav-icon">⊞</span> Calculator</a>
+    </nav>
+    <button class="btn-logout" onclick="handleLogout()">Sign Out</button>
+  </aside>
+
+  <!-- OVERLAY -->
+  <div id="sidebar-overlay" class="sidebar-overlay hidden" onclick="toggleSidebar()"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="top-bar">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title" id="page-title">Dashboard</h1>
+      <div class="top-actions">
+        <span class="top-date" id="top-date"></span>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
+      <div id="cross-branch-banner" style="display:none" class="cross-branch-bar">
+        <div>
+          <p>📍 Viewing: <strong id="cross-branch-viewing">Main Branch</strong></p>
+          <span id="cross-branch-sub">Switch branch from the sidebar</span>
+        </div>
+        <button class="cross-branch-btn" onclick="openBranchManager()">Manage Branches</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Total Sales</div>
+          <div class="stat-value" id="dash-total-sales">KES 0</div>
+          <div class="stat-sub" id="dash-sales-count">0 transactions</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Total Services</div>
+          <div class="stat-value" id="dash-total-services">KES 0</div>
+          <div class="stat-sub" id="dash-services-count">0 transactions</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Combined Revenue</div>
+          <div class="stat-value" id="dash-total-revenue">KES 0</div>
+          <div class="stat-sub">Sales + Services</div>
+        </div>
+        <div class="stat-card accent-orange">
+          <div class="stat-label">Total Expenses</div>
+          <div class="stat-value" id="dash-total-expenses">KES 0</div>
+          <div class="stat-sub" id="dash-expenses-sub">0 entries</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Net Profit</div>
+          <div class="stat-value" id="dash-net-profit">KES 0</div>
+          <div class="stat-sub" id="dash-net-sub">Revenue − Expenses</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Stock Items</div>
+          <div class="stat-value" id="dash-stock-items">0</div>
+          <div class="stat-sub">in inventory</div>
+        </div>
+        <div class="stat-card accent-orange">
+          <div class="stat-label">Employees</div>
+          <div class="stat-value" id="dash-employees">0</div>
+          <div class="stat-sub">active staff</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Sales</h3>
+            <button class="btn-sm" onclick="exportTablePDF('dash-sales-table','Recent Sales')">⬇ PDF</button>
+          </div>
+          <div class="table-wrap">
+            <table id="dash-sales-table">
+              <thead><tr><th>Item</th><th>Employee</th><th>Amount</th><th>Date</th></tr></thead>
+              <tbody id="dash-sales-body"><tr><td colspan="4" class="empty-row">No sales yet</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Services</h3>
+            <button class="btn-sm" onclick="exportTablePDF('dash-svc-table','Recent Services')">⬇ PDF</button>
+          </div>
+          <div class="table-wrap">
+            <table id="dash-svc-table">
+              <thead><tr><th>Service</th><th>Employee</th><th>Cost</th><th>Date</th></tr></thead>
+              <tbody id="dash-svc-body"><tr><td colspan="4" class="empty-row">No services yet</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVENTORY -->
+    <section id="page-inventory" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('inv-modal')">+ Add Item</button>
+        <button class="btn-secondary" onclick="exportTablePDF('inv-table','Inventory')">⬇ Export PDF</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Inventory Items</h3>
+          <input class="search-input" type="text" placeholder="Search items…" oninput="filterTable(this,'inv-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="inv-table">
+            <thead><tr><th>Item Name</th><th>Category</th><th>Qty</th><th>Unit Cost</th><th>Total Value</th><th>Actions</th></tr></thead>
+            <tbody id="inv-body"><tr><td colspan="6" class="empty-row">No items yet. Add your first item.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOCK -->
+    <section id="page-stock" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('stock-modal')">+ Add Stock Entry</button>
+        <button class="btn-secondary" onclick="exportTablePDF('stock-table','Stock')">⬇ Export PDF</button>
+      </div>
+      <div class="stats-grid mini">
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Total Items</div>
+          <div class="stat-value" id="stock-total-items">0</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Total Stock Value</div>
+          <div class="stat-value" id="stock-total-value">KES 0</div>
+        </div>
+        <div class="stat-card accent-orange">
+          <div class="stat-label">Low Stock Alerts</div>
+          <div class="stat-value" id="stock-low">0</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Stock Records</h3>
+          <input class="search-input" type="text" placeholder="Search stock…" oninput="filterTable(this,'stock-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="stock-table">
+            <thead><tr><th>Item</th><th>Qty</th><th>Unit Cost</th><th>Total Cost</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="stock-body"><tr><td colspan="6" class="empty-row">No stock entries yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SALES -->
+    <section id="page-sales" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('sale-modal')">+ Record Sale</button>
+        <button class="btn-secondary" onclick="exportTablePDF('sales-table','Sales')">⬇ Export PDF</button>
+      </div>
+      <div class="stats-grid mini">
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-value" id="sales-total">KES 0</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Gross Profit</div>
+          <div class="stat-value" id="sales-gross-profit">KES 0</div>
+          <div class="stat-sub">Revenue − Cost of Goods</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Transactions</div>
+          <div class="stat-value" id="sales-count">0</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Sales Records</h3>
+          <input class="search-input" type="text" placeholder="Search sales…" oninput="filterTable(this,'sales-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="sales-table">
+            <thead><tr><th>Item Sold</th><th>Qty</th><th>Unit Price</th><th>Cost Price</th><th>Revenue</th><th>Profit</th><th>Customer</th><th>Payment</th><th>Employee</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="sales-body"><tr><td colspan="7" class="empty-row">No sales recorded yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="page-services" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('svc-modal')">+ Add Service</button>
+        <button class="btn-secondary" onclick="exportTablePDF('svc-table','Services')">⬇ Export PDF</button>
+      </div>
+      <div class="stats-grid mini">
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Total Services Revenue</div>
+          <div class="stat-value" id="svc-total">KES 0</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Service Records</div>
+          <div class="stat-value" id="svc-count">0</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Service Records</h3>
+          <input class="search-input" type="text" placeholder="Search services…" oninput="filterTable(this,'svc-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="svc-table">
+            <thead><tr><th>Service Type</th><th>Description</th><th>Cost</th><th>Employee</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="svc-body"><tr><td colspan="6" class="empty-row">No services recorded yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPLOYEES -->
+    <section id="page-employees" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('emp-modal')">+ Add Employee</button>
+        <button class="btn-secondary" onclick="exportTablePDF('emp-table','Employees')">⬇ Export PDF</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Employee Directory</h3>
+          <input class="search-input" type="text" placeholder="Search employees…" oninput="filterTable(this,'emp-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="emp-table">
+            <thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="emp-body"><tr><td colspan="6" class="empty-row">No employees yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMERS -->
+    <section id="page-customers" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('cust-modal')">+ Add Customer</button>
+        <button class="btn-secondary" onclick="exportTablePDF('cust-table','Customers')">⬇ Export PDF</button>
+      </div>
+      <div class="stats-grid mini">
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Total Customers</div>
+          <div class="stat-value" id="cust-total">0</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">With Purchases</div>
+          <div class="stat-value" id="cust-active">0</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Total Customer Spend</div>
+          <div class="stat-value" id="cust-spend">KES 0</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Customer Directory</h3>
+          <input class="search-input" type="text" placeholder="Search customers…" oninput="filterTable(this,'cust-body')" />
+        </div>
+        <div class="table-wrap">
+          <table id="cust-table">
+            <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Total Spend</th><th>Purchases</th><th>Last Visit</th><th>Actions</th></tr></thead>
+            <tbody id="cust-body"><tr><td colspan="7" class="empty-row">No customers yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPENSES -->
+    <section id="page-expenses" class="page">
+      <div class="page-actions">
+        <button class="btn-primary" onclick="openModal('exp-modal')">+ Log Expense</button>
+        <button class="btn-secondary" onclick="exportTablePDF('exp-table','Expenses')">⬇ Export PDF</button>
+      </div>
+      <div class="stats-grid mini">
+        <div class="stat-card accent-red" style="--accent-color:var(--red)">
+          <div class="stat-label">Total Expenses</div>
+          <div class="stat-value" id="exp-total">KES 0</div>
+        </div>
+        <div class="stat-card accent-orange">
+          <div class="stat-label">This Month</div>
+          <div class="stat-value" id="exp-month">KES 0</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Net Profit</div>
+          <div class="stat-value" id="exp-net">KES 0</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>Expense Records</h3>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <select class="search-input" id="exp-filter-cat" onchange="renderExpenses()" style="width:140px">
+              <option value="">All categories</option>
+              <option>Rent</option><option>Salaries</option><option>Utilities</option>
+              <option>Supplies</option><option>Transport</option><option>Marketing</option>
+              <option>Equipment</option><option>Other</option>
+            </select>
+            <input class="search-input" type="text" placeholder="Search…" oninput="filterTable(this,'exp-body')" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="exp-table">
+            <thead><tr><th>Description</th><th>Category</th><th>Amount</th><th>Payment</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="exp-body"><tr><td colspan="6" class="empty-row">No expenses logged yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section id="page-analytics" class="page">
+      <div class="page-actions">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:13px;color:var(--text2)">Period:</label>
+          <select class="search-input" id="analytics-period" onchange="renderAnalytics()" style="width:140px">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="365">This year</option>
+          </select>
+          <label style="font-size:13px;color:var(--text2)">From:</label>
+          <input type="date" id="analytics-from" class="search-input" style="width:140px" onchange="renderAnalytics()" />
+          <label style="font-size:13px;color:var(--text2)">To:</label>
+          <input type="date" id="analytics-to" class="search-input" style="width:140px" onchange="renderAnalytics()" />
+        </div>
+      </div>
+      <div class="stats-grid" style="margin-bottom:20px">
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Sales Revenue</div>
+          <div class="stat-value" id="an-sales">KES 0</div>
+          <div class="stat-sub" id="an-sales-sub">0 transactions</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Services Revenue</div>
+          <div class="stat-value" id="an-svc">KES 0</div>
+          <div class="stat-sub" id="an-svc-sub">0 records</div>
+        </div>
+        <div class="stat-card accent-red">
+          <div class="stat-label">Total Expenses</div>
+          <div class="stat-value" id="an-exp">KES 0</div>
+          <div class="stat-sub" id="an-exp-sub">0 entries</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Net Profit</div>
+          <div class="stat-value" id="an-net">KES 0</div>
+          <div class="stat-sub" id="an-net-sub">After expenses</div>
+        </div>
+      </div>
+      <div class="dash-grid">
+        <div class="card">
+          <div class="card-header"><h3>Revenue vs Expenses</h3></div>
+          <div style="padding:16px"><canvas id="chart-rev-exp" height="200"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Payment Methods (Sales)</h3></div>
+          <div style="padding:16px"><canvas id="chart-payment" height="200"></canvas></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-header"><h3>Top Selling Items (by Revenue)</h3></div>
+        <div style="padding:16px"><canvas id="chart-top-items" height="160"></canvas></div>
+      </div>
+      <div class="card" style="margin-top:16px" id="branch-compare-card">
+        <div class="card-header">
+          <h3>Branch Comparison</h3>
+          <button class="btn-sm" onclick="loadBranchComparison()">↻ Refresh</button>
+        </div>
+        <div style="padding:16px"><canvas id="chart-branches" height="180"></canvas></div>
+        <div id="branch-compare-table" style="padding:0 16px 16px;font-size:13px;color:var(--text2)">
+          Loading branch data…
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="page-calculator" class="page">
+      <div class="calc-wrap">
+        <div class="calculator">
+          <div class="calc-display">
+            <div class="calc-expr" id="calc-expr"></div>
+            <div class="calc-val" id="calc-val">0</div>
+          </div>
+          <div class="calc-grid">
+            <button class="calc-btn span2 btn-clear" onclick="calcClear()">AC</button>
+            <button class="calc-btn btn-op" onclick="calcOp('%')">%</button>
+            <button class="calc-btn btn-op" onclick="calcOp('÷')">÷</button>
+            <button class="calc-btn" onclick="calcNum('7')">7</button>
+            <button class="calc-btn" onclick="calcNum('8')">8</button>
+            <button class="calc-btn" onclick="calcNum('9')">9</button>
+            <button class="calc-btn btn-op" onclick="calcOp('×')">×</button>
+            <button class="calc-btn" onclick="calcNum('4')">4</button>
+            <button class="calc-btn" onclick="calcNum('5')">5</button>
+            <button class="calc-btn" onclick="calcNum('6')">6</button>
+            <button class="calc-btn btn-op" onclick="calcOp('−')">−</button>
+            <button class="calc-btn" onclick="calcNum('1')">1</button>
+            <button class="calc-btn" onclick="calcNum('2')">2</button>
+            <button class="calc-btn" onclick="calcNum('3')">3</button>
+            <button class="calc-btn btn-op" onclick="calcOp('+')">+</button>
+            <button class="calc-btn" onclick="calcToggleSign()">+/−</button>
+            <button class="calc-btn" onclick="calcNum('0')">0</button>
+            <button class="calc-btn" onclick="calcDot()">.</button>
+            <button class="calc-btn btn-eq" onclick="calcEquals()">=</button>
+          </div>
+        </div>
+        <div class="calc-history">
+          <div class="card-header"><h3>History</h3><button class="btn-sm" onclick="clearCalcHistory()">Clear</button></div>
+          <ul id="calc-history-list"><li class="empty-row">No calculations yet</li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- MODALS -->
+
+<!-- Inventory Modal -->
+<div id="inv-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3 id="inv-modal-title">Add Inventory Item</h3><button onclick="closeModal('inv-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="inv-edit-id" />
+      <div class="form-group"><label>Item Name</label><input type="text" id="inv-name" placeholder="e.g. Office Chair" /></div>
+      <div class="form-group"><label>Category</label><input type="text" id="inv-category" placeholder="e.g. Furniture" /></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Quantity</label><input type="number" id="inv-qty" placeholder="0" min="0" /></div>
+        <div class="form-group"><label>Unit Cost (KES)</label><input type="number" id="inv-cost" placeholder="0.00" min="0" step="0.01" /></div>
+      </div>
+      <div class="form-group total-preview">Total Value: <strong id="inv-total-preview">KES 0.00</strong></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('inv-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveInventory()">Save Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stock Modal -->
+<div id="stock-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3>Add Stock Entry</h3><button onclick="closeModal('stock-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="stock-edit-id" />
+      <div class="form-group"><label>Item Name</label><input type="text" id="stock-name" placeholder="Item name" /></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Quantity</label><input type="number" id="stock-qty" placeholder="0" min="0" oninput="updateStockPreview()" /></div>
+        <div class="form-group"><label>Unit Cost (KES)</label><input type="number" id="stock-cost" placeholder="0.00" min="0" step="0.01" oninput="updateStockPreview()" /></div>
+      </div>
+      <div class="form-group"><label>Low Stock Alert Level</label><input type="number" id="stock-alert" placeholder="e.g. 5" min="0" /></div>
+      <div class="form-group total-preview">Total Cost: <strong id="stock-total-preview">KES 0.00</strong></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('stock-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveStock()">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sale Modal -->
+<div id="sale-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3>Record Sale</h3><button onclick="closeModal('sale-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="sale-edit-id" />
+      <div class="form-group"><label>Item Sold</label><input type="text" id="sale-item" placeholder="Item name" onblur="autoFillCostFromStock()" /></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Customer Name</label><input type="text" id="sale-customer" placeholder="Walk-in / name" /></div>
+        <div class="form-group"><label>Customer Phone</label><input type="tel" id="sale-customer-phone" placeholder="+254 7…" /></div>
+      </div>
+      <div class="form-group"><label>Employee</label><select id="sale-employee"><option value="">Select employee</option></select></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Quantity</label><input type="number" id="sale-qty" placeholder="1" min="1" oninput="updateSalePreview()" /></div>
+        <div class="form-group"><label>Unit Price (KES) — Selling</label><input type="number" id="sale-price" placeholder="0.00" min="0" step="0.01" oninput="updateSalePreview()" /></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Cost Price (KES) — What you paid</label>
+          <input type="number" id="sale-cost" placeholder="Auto-filled from stock" min="0" step="0.01" oninput="updateSalePreview()" />
+        </div>
+        <div class="form-group">
+          <label>Profit Preview</label>
+          <div style="padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--green)" id="sale-profit-preview">KES 0.00</div>
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Payment Method</label>
+          <select id="sale-payment">
+            <option value="Cash">Cash</option>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Credit">Credit</option>
+          </select>
+        </div>
+        <div class="form-group"><label>M-Pesa Ref (optional)</label><input type="text" id="sale-mpesa-ref" placeholder="e.g. QHK2X…" /></div>
+      </div>
+      <div class="form-group"><label>Date</label><input type="date" id="sale-date" /></div>
+      <div class="form-group total-preview">Total: <strong id="sale-total-preview">KES 0.00</strong></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('sale-modal')">Cancel</button>
+      <button class="btn-secondary" id="sale-receipt-btn" onclick="printReceipt()" style="display:none">🧾 Receipt</button>
+      <button class="btn-primary" onclick="saveSale()">Save Sale</button>
+    </div>
+  </div>
+</div>
+
+<!-- Service Modal -->
+<div id="svc-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3>Add Service Record</h3><button onclick="closeModal('svc-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="svc-edit-id" />
+      <div class="form-group">
+        <label>Service Type</label>
+        <select id="svc-type">
+          <option value="">Select type</option>
+          <option>Consulting</option>
+          <option>Repair</option>
+          <option>Maintenance</option>
+          <option>Installation</option>
+          <option>Delivery</option>
+          <option>Training</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Service Description</label><textarea id="svc-desc" placeholder="Describe the service provided…" rows="3"></textarea></div>
+      <div class="form-group"><label>Employee</label><select id="svc-employee"><option value="">Select employee</option></select></div>
+      <div class="form-group"><label>Cost (KES)</label><input type="number" id="svc-cost" placeholder="0.00" min="0" step="0.01" /></div>
+      <div class="form-group"><label>Date</label><input type="date" id="svc-date" /></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('svc-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveService()">Save Service</button>
+    </div>
+  </div>
+</div>
+
+<!-- Employee Modal -->
+<div id="emp-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3 id="emp-modal-title">Add Employee</h3><button onclick="closeModal('emp-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="emp-edit-id" />
+      <div class="form-grid-2">
+        <div class="form-group"><label>First Name</label><input type="text" id="emp-firstname" placeholder="Jane" /></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="emp-lastname" placeholder="Doe" /></div>
+      </div>
+      <div class="form-group"><label>Role / Position</label><input type="text" id="emp-role" placeholder="e.g. Sales Associate" /></div>
+      <div class="form-group"><label>Email</label><input type="email" id="emp-email" placeholder="jane@business.com" /></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="emp-phone" placeholder="+254 700 000 000" /></div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="emp-status">
+          <option value="Active">Active</option>
+          <option value="On Leave">On Leave</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('emp-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveEmployee()">Save Employee</button>
+    </div>
+  </div>
+</div>
+
+<!-- Branch Manager Modal -->
+<div id="branch-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3>Manage Branches</h3><button onclick="closeModal('branch-modal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px">Each branch has its own inventory, stock, sales, services, employees, customers and expenses — all under one account.</p>
+
+      <div class="form-group">
+        <label>Add New Branch</label>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="new-branch-name" placeholder="Branch name (e.g. Westlands, Mombasa)" style="flex:1" />
+          <button class="btn-primary" onclick="addBranch()" style="white-space:nowrap">+ Add</button>
+        </div>
+      </div>
+
+      <div class="ai-section-label" style="margin-top:16px;margin-bottom:10px">Your Branches</div>
+      <div id="branch-manager-list">
+        <div style="font-size:13px;color:var(--text3)">Loading…</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('branch-modal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Modal -->
+<div id="cust-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3 id="cust-modal-title">Add Customer</h3><button onclick="closeModal('cust-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="cust-edit-id" />
+      <div class="form-grid-2">
+        <div class="form-group"><label>First Name</label><input type="text" id="cust-firstname" placeholder="Jane" /></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="cust-lastname" placeholder="Doe" /></div>
+      </div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="cust-phone" placeholder="+254 700 000 000" /></div>
+      <div class="form-group"><label>Email (optional)</label><input type="email" id="cust-email" placeholder="jane@email.com" /></div>
+      <div class="form-group"><label>Notes (optional)</label><textarea id="cust-notes" placeholder="Any notes about this customer…" rows="2"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('cust-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveCustomer()">Save Customer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expense Modal -->
+<div id="exp-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3 id="exp-modal-title">Log Expense</h3><button onclick="closeModal('exp-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="exp-edit-id" />
+      <div class="form-group"><label>Description</label><input type="text" id="exp-desc" placeholder="e.g. Monthly rent" /></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Category</label>
+          <select id="exp-cat">
+            <option value="">Select category</option>
+            <option>Rent</option><option>Salaries</option><option>Utilities</option>
+            <option>Supplies</option><option>Transport</option><option>Marketing</option>
+            <option>Equipment</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Amount (KES)</label><input type="number" id="exp-amount" placeholder="0.00" min="0" step="0.01" /></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Payment Method</label>
+          <select id="exp-payment">
+            <option value="Cash">Cash</option>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Date</label><input type="date" id="exp-date" /></div>
+      </div>
+      <div class="form-group"><label>Notes (optional)</label><textarea id="exp-notes" placeholder="Additional details…" rows="2"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('exp-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveExpense()">Save Expense</button>
+    </div>
+  </div>
+</div>
+
+<!-- Receipt Modal -->
+<div id="receipt-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header"><h3>Sale Receipt</h3><button onclick="closeModal('receipt-modal')">✕</button></div>
+    <div class="modal-body">
+      <div id="receipt-content" style="font-family:monospace;font-size:13px;line-height:1.8;background:var(--bg2);border-radius:8px;padding:16px;white-space:pre-wrap;color:var(--text)"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('receipt-modal')">Close</button>
+      <button class="btn-secondary" onclick="copyReceipt()">📋 Copy</button>
+      <button class="btn-primary" onclick="shareReceipt()">↑ Share</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- ============================================
+     BIZZ AI AGENT
+     ============================================ -->
+<style>
+/* --- FAB button --- */
+#ai-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(79,123,255,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#ai-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(79,123,255,0.6); }
+#ai-fab.open { background: var(--surface2); color: var(--text2); box-shadow: none; }
+
+/* --- Agent panel --- */
+#ai-panel {
+  position: fixed;
+  bottom: 88px;
+  right: 24px;
+  width: 340px;
+  max-height: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  overflow: hidden;
+  animation: agentIn 0.2s ease;
+}
+#ai-panel.hidden { display: none; }
+@keyframes agentIn {
+  from { opacity:0; transform: translateY(12px) scale(0.97); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+.ai-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1px solid rgba(79,123,255,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.ai-header-text { flex: 1; }
+.ai-header-text p { font-size: 14px; font-weight: 600; color: var(--text); }
+.ai-header-text span { font-size: 11px; color: var(--green); }
+.ai-online-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+/* --- Tabs --- */
+.ai-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+.ai-tab {
+  flex: 1;
+  padding: 9px 4px 7px;
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: var(--font-body);
+}
+.ai-tab .tab-icon { font-size: 16px; display: block; margin-bottom: 2px; }
+.ai-tab:hover { color: var(--text2); }
+.ai-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* --- Panels --- */
+.ai-pane { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+.ai-pane.active { display: flex; }
+
+/* CHAT pane */
+.ai-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.ai-msg {
+  max-width: 86%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.ai-msg.user {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.ai-msg.bot {
+  align-self: flex-start;
+  background: var(--bg3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+.ai-msg.thinking { color: var(--text3); font-style: italic; }
+.ai-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+  flex-shrink: 0;
+  align-items: center;
+}
+.ai-input-row input {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: var(--font-body);
+  outline: none;
+}
+.ai-input-row input:focus { border-color: var(--accent); }
+.ai-icon-btn {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text3);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+  transition: all 0.15s;
+}
+.ai-icon-btn:hover { background: var(--surface2); color: var(--text); }
+.ai-icon-btn.send { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ai-icon-btn.mic-active { background: var(--red-dim); color: #fca5a5; border-color: rgba(239,68,68,0.3); }
+
+/* INSIGHTS pane */
+.ai-scroll { flex: 1; overflow-y: auto; padding: 12px; }
+.ai-metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.ai-metric {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.ai-metric-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+.ai-metric-value { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--text); }
+.ai-metric-sub { font-size: 11px; margin-top: 3px; }
+.up { color: var(--green); }
+.dn { color: var(--red); }
+.ai-section-label {
+  font-size: 11px; font-weight: 600; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin: 10px 0 6px;
+}
+.ai-alert {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 10px;
+  background: var(--orange-dim);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+.ai-alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.ai-alert p { font-size: 12px; color: var(--text); font-weight: 500; }
+.ai-alert span { font-size: 11px; color: var(--text3); display: block; margin-top: 1px; }
+.ai-refresh-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.ai-refresh-btn:hover { background: var(--surface2); color: var(--text); }
+
+/* ACTIONS pane */
+.ai-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+}
+.ai-action-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.ai-action-card:hover { background: var(--surface2); border-color: var(--border2); }
+.ai-action-icon { font-size: 20px; display: block; margin-bottom: 6px; }
+.ai-action-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.ai-action-desc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* REPORTS pane */
+.ai-report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+}
+.ai-report-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.ai-report-card:hover { background: var(--surface2); border-color: var(--border2); }
+.ai-report-icon { font-size: 20px; display: block; margin-bottom: 6px; }
+.ai-report-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.ai-report-desc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.ai-report-result {
+  margin: 0 12px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text2);
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+.ai-report-btns {
+  display: flex;
+  gap: 8px;
+  padding: 0 12px 12px;
+  display: none;
+}
+.ai-report-btns button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text3);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.ai-report-btns button:hover { background: var(--surface2); color: var(--text); }
+
+@media (max-width: 480px) {
+  #ai-panel { width: calc(100vw - 32px); right: 16px; bottom: 80px; }
+  #ai-fab { bottom: 16px; right: 16px; }
+}
+</style>
+
+<!-- FAB -->
+<button id="ai-fab" onclick="toggleAgent()" title="Bizz AI Agent">🤖</button>
+
+<!-- AGENT PANEL -->
+<div id="ai-panel" class="hidden">
+  <div class="ai-header">
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-header-text">
+      <p>Bizz AI Agent</p>
+      <span>● Online · Claude-powered</span>
+    </div>
+    <div class="ai-online-dot"></div>
+  </div>
+
+  <div class="ai-tabs">
+    <button class="ai-tab active" onclick="aiTab('chat',this)">
+      <span class="tab-icon">💬</span>Chat
+    </button>
+    <button class="ai-tab" onclick="aiTab('insights',this)">
+      <span class="tab-icon">📊</span>Insights
+    </button>
+    <button class="ai-tab" onclick="aiTab('actions',this)">
+      <span class="tab-icon">⚡</span>Actions
+    </button>
+    <button class="ai-tab" onclick="aiTab('reports',this)">
+      <span class="tab-icon">📄</span>Reports
+    </button>
+  </div>
+
+  <!-- CHAT -->
+  <div id="ai-pane-chat" class="ai-pane active">
+    <div class="ai-msgs" id="ai-msgs">
+      <div class="ai-msg bot">Hi! I'm your Bizz AI Agent. I can answer questions about your sales, stock, employees, and P&L — or help you take action. Try: <em>"How are sales today?"</em> or <em>"Which items are low on stock?"</em></div>
+    </div>
+    <div class="ai-input-row">
+      <button class="ai-icon-btn" id="ai-mic-btn" onclick="aiToggleVoice()" title="Voice input">🎤</button>
+      <input type="text" id="ai-chat-input" placeholder="Ask anything about your business…" onkeydown="if(event.key==='Enter')aiSendChat()" />
+      <button class="ai-icon-btn send" onclick="aiSendChat()" title="Send">➤</button>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div id="ai-pane-insights" class="ai-pane">
+    <div class="ai-scroll">
+      <div class="ai-metric-grid">
+        <div class="ai-metric">
+          <div class="ai-metric-label">Total Sales</div>
+          <div class="ai-metric-value" id="aii-sales">KES 0</div>
+          <div class="ai-metric-sub" id="aii-sales-sub">0 transactions</div>
+        </div>
+        <div class="ai-metric">
+          <div class="ai-metric-label">Services Revenue</div>
+          <div class="ai-metric-value" id="aii-svc">KES 0</div>
+          <div class="ai-metric-sub" id="aii-svc-sub">0 records</div>
+        </div>
+        <div class="ai-metric">
+          <div class="ai-metric-label">Stock Items</div>
+          <div class="ai-metric-value" id="aii-stock">0</div>
+          <div class="ai-metric-sub">in inventory</div>
+        </div>
+        <div class="ai-metric">
+          <div class="ai-metric-label">Net Profit</div>
+          <div class="ai-metric-value" id="aii-net-val" style="font-size:15px">KES 0</div>
+          <div class="ai-metric-sub" id="aii-net-sub">Revenue − Expenses</div>
+        </div>
+      </div>
+      <div class="ai-section-label">⚠️ Low Stock Alerts</div>
+      <div id="aii-alerts"><div style="font-size:12px;color:var(--text3);padding:8px 0">No alerts — all stock levels OK</div></div>
+      <button class="ai-refresh-btn" onclick="aiLoadInsights()">↻ Refresh insights</button>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div id="ai-pane-actions" class="ai-pane">
+    <div class="ai-actions-grid">
+      <button class="ai-action-card" onclick="aiQuickAction('Record a new sale')">
+        <span class="ai-action-icon">🛒</span>
+        <div class="ai-action-title">Record sale</div>
+        <div class="ai-action-desc">Log a new transaction</div>
+      </button>
+      <button class="ai-action-card" onclick="aiQuickAction('Update stock levels')">
+        <span class="ai-action-icon">📦</span>
+        <div class="ai-action-title">Update stock</div>
+        <div class="ai-action-desc">Adjust inventory units</div>
+      </button>
+      <button class="ai-action-card" onclick="aiQuickAction('Show me a P&L summary')">
+        <span class="ai-action-icon">📈</span>
+        <div class="ai-action-title">P&L snapshot</div>
+        <div class="ai-action-desc">Current period summary</div>
+      </button>
+      <button class="ai-action-card" onclick="aiQuickAction('Which employees are active?')">
+        <span class="ai-action-icon">👥</span>
+        <div class="ai-action-title">Staff overview</div>
+        <div class="ai-action-desc">Active employees list</div>
+      </button>
+      <button class="ai-action-card" onclick="aiQuickAction('What are my top selling items?')">
+        <span class="ai-action-icon">🏆</span>
+        <div class="ai-action-title">Top sellers</div>
+        <div class="ai-action-desc">Best performing items</div>
+      </button>
+      <button class="ai-action-card" onclick="aiQuickAction('Which stock items need restocking urgently?')">
+        <span class="ai-action-icon">🚨</span>
+        <div class="ai-action-title">Restock alerts</div>
+        <div class="ai-action-desc">Items below threshold</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- REPORTS -->
+  <div id="ai-pane-reports" class="ai-pane" style="overflow-y:auto">
+    <div class="ai-report-grid">
+      <button class="ai-report-card" onclick="aiGenerateReport('daily')">
+        <span class="ai-report-icon">📅</span>
+        <div class="ai-report-title">Daily summary</div>
+        <div class="ai-report-desc">Today's snapshot</div>
+      </button>
+      <button class="ai-report-card" onclick="aiGenerateReport('inventory')">
+        <span class="ai-report-icon">📋</span>
+        <div class="ai-report-title">Inventory report</div>
+        <div class="ai-report-desc">Stock levels & values</div>
+      </button>
+      <button class="ai-report-card" onclick="aiGenerateReport('sales')">
+        <span class="ai-report-icon">💰</span>
+        <div class="ai-report-title">Sales analysis</div>
+        <div class="ai-report-desc">Revenue breakdown</div>
+      </button>
+      <button class="ai-report-card" onclick="aiGenerateReport('pl')">
+        <span class="ai-report-icon">📊</span>
+        <div class="ai-report-title">P&L report</div>
+        <div class="ai-report-desc">Profit & loss detail</div>
+      </button>
+    </div>
+    <div class="ai-report-result" id="ai-report-text"></div>
+    <div class="ai-report-btns" id="ai-report-btns">
+      <button onclick="aiCopyReport()">📋 Copy</button>
+      <button onclick="aiShareReport()">↑ Share</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================
+   BIZZ AI AGENT — wired to live Firestore state
+   ============================================ */
+
+let aiPanelOpen = false;
+let aiRecognition = null;
+let aiListening = false;
+let aiCurrentReport = "";
+
+function toggleAgent() {
+  aiPanelOpen = !aiPanelOpen;
+  const panel = document.getElementById("ai-panel");
+  const fab = document.getElementById("ai-fab");
+  if (aiPanelOpen) {
+    panel.classList.remove("hidden");
+    fab.classList.add("open");
+    fab.textContent = "✕";
+    aiLoadInsights();
+  } else {
+    panel.classList.add("hidden");
+    fab.classList.remove("open");
+    fab.textContent = "🤖";
+  }
+}
+
+function aiTab(name, btn) {
+  document.querySelectorAll(".ai-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".ai-pane").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("ai-pane-" + name).classList.add("active");
+  if (name === "insights") aiLoadInsights();
+}
+
+/* ---- CHAT ---- */
+function aiAddMsg(text, role) {
+  const msgs = document.getElementById("ai-msgs");
+  const div = document.createElement("div");
+  div.className = "ai-msg " + role;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function aiBuildContext() {
+  const salesRevenue = state.sales.reduce((a, s) => a + (Number(s.total)  || 0), 0);
+  const grossProfit  = state.sales.reduce((a, s) => a + (Number(s.profit) || 0), 0);
+  const svcTotal     = state.services.reduce((a, s) => a + (Number(s.cost)   || 0), 0);
+  const expTotal     = state.expenses.reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const revenue      = salesRevenue + svcTotal;
+  const netProfit    = grossProfit + svcTotal - expTotal;
+  const margin       = revenue > 0 ? ((netProfit / revenue) * 100).toFixed(1) : "0.0";
+  const invValue     = state.inventory.reduce((a, i) => a + ((Number(i.qty) || 0) * (Number(i.cost) || 0)), 0);
+  const lowStock     = state.stock.filter(s => s.alertLevel && Number(s.qty) <= Number(s.alertLevel));
+  const activeEmps   = state.employees.filter(e => e.status === "Active");
+
+  // Top items by sales frequency
+  const itemCounts = {};
+  state.sales.forEach(s => { itemCounts[s.item] = (itemCounts[s.item] || 0) + 1; });
+  const topItems = Object.entries(itemCounts).sort((a,b) => b[1]-a[1]).slice(0,5).map(e => e[0]);
+
+  return `You are Bizz AI, an intelligent business assistant embedded in Bizz Manager — a Kenyan business management app.
+
+LIVE BUSINESS DATA:
+- Business: ${state.user?.bizName || "Unknown"} (${state.user?.bizType || ""})
+- Owner: ${state.user?.firstName || ""} ${state.user?.lastName || ""}
+- Branch: ${state.branches?.find(b => b.id === state.activeBranchId)?.name || "Main"}
+- Sales revenue: KES ${salesRevenue.toLocaleString("en-KE")} across ${state.sales.length} transactions
+- Sales gross profit (revenue − cost of goods): KES ${grossProfit.toLocaleString("en-KE")}
+- Services revenue: KES ${svcTotal.toLocaleString("en-KE")} across ${state.services.length} records
+- Combined revenue: KES ${revenue.toLocaleString("en-KE")}
+- Total expenses: KES ${expTotal.toLocaleString("en-KE")} across ${state.expenses.length} entries
+- Net profit (gross profit + services − expenses): KES ${netProfit.toLocaleString("en-KE")} (${margin}% margin)
+- Inventory value: KES ${invValue.toLocaleString("en-KE")}
+- Low stock alerts: ${lowStock.length} items (${lowStock.map(s => s.name + " [" + s.qty + " left]").join(", ") || "none"})
+- Active employees: ${activeEmps.length} of ${state.employees.length} total
+- Top selling items: ${topItems.join(", ") || "no sales yet"}
+- Recent sales: ${[...state.sales].reverse().slice(0, 5).map(s => s.item + " x" + s.qty + " = KES " + (Number(s.total) || 0).toLocaleString()).join("; ") || "none"}
+
+INSTRUCTIONS:
+- Be concise and direct (2-4 sentences max for simple questions).
+- Use KES for all currency amounts.
+- Net Profit = Combined Revenue − Total Expenses. Use these exact figures — do not guess.
+- When asked about actions (record sale, update stock), explain what info is needed and guide the user.
+- Provide specific numbers from the data above — do not guess.`;
+}
+
+async function aiSendChat() {
+  const input = document.getElementById("ai-chat-input");
+  const text = input.value.trim();
+  if (!text) return;
+  if (!state.user) { aiAddMsg("Please sign in first to use the AI agent.", "bot"); return; }
+  input.value = "";
+  aiAddMsg(text, "user");
+  const thinking = aiAddMsg("Thinking…", "bot thinking");
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        system: aiBuildContext(),
+        messages: [{ role: "user", content: text }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.map(c => c.text || "").join("") || "Sorry, I couldn't get a response.";
+    thinking.textContent = reply;
+    thinking.classList.remove("thinking");
+  } catch (e) {
+    thinking.textContent = "Connection error. Please check your internet.";
+    thinking.classList.remove("thinking");
+  }
+}
+
+/* ---- INSIGHTS (reads from live Firestore state) ---- */
+function aiLoadInsights() {
+  if (!state.user) return;
+  const salesTotal = state.sales.reduce((a, s) => a + (Number(s.total) || 0), 0);
+  const svcTotal   = state.services.reduce((a, s) => a + (Number(s.cost) || 0), 0);
+  const expTotal   = state.expenses.reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const netProfit  = salesTotal + svcTotal - expTotal;
+  const activeEmps = state.employees.filter(e => e.status === "Active").length;
+  const lowStock   = state.stock.filter(s => s.alertLevel && Number(s.qty) <= Number(s.alertLevel));
+
+  document.getElementById("aii-sales").textContent    = fmt(salesTotal);
+  document.getElementById("aii-sales-sub").textContent = state.sales.length + " transactions";
+  document.getElementById("aii-svc").textContent      = fmt(svcTotal);
+  document.getElementById("aii-svc-sub").textContent  = state.services.length + " records";
+  document.getElementById("aii-stock").textContent    = state.stock.length;
+  document.getElementById("aii-emp").textContent      = activeEmps;
+
+  // Update metric labels to show net profit instead of generic stock count
+  const netLabel = document.getElementById("aii-net-label");
+  const netVal   = document.getElementById("aii-net-val");
+  const netSub   = document.getElementById("aii-net-sub");
+  if (netVal) {
+    netVal.textContent  = fmt(netProfit);
+    netVal.style.color  = netProfit >= 0 ? "var(--green)" : "var(--red)";
+    if (netSub) netSub.textContent = netProfit >= 0 ? "Profitable ✓" : "Loss ✗";
+  }
+
+  const alertsEl = document.getElementById("aii-alerts");
+  if (lowStock.length === 0) {
+    alertsEl.innerHTML = `<div style="font-size:12px;color:var(--text3);padding:8px 0">✅ No alerts — all stock levels OK</div>`;
+  } else {
+    alertsEl.innerHTML = lowStock.map(s =>
+      `<div class="ai-alert">
+        <span class="ai-alert-icon">⚠️</span>
+        <div>
+          <p>${esc(s.name)}</p>
+          <span>${s.qty} units left · Alert at ${s.alertLevel}</span>
+        </div>
+      </div>`
+    ).join("");
+  }
+}
+
+/* ---- QUICK ACTIONS (switches to chat and pre-fills) ---- */
+function aiQuickAction(prompt) {
+  // Switch to chat tab
+  document.querySelectorAll(".ai-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".ai-pane").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".ai-tab")[0].classList.add("active");
+  document.getElementById("ai-pane-chat").classList.add("active");
+  document.getElementById("ai-chat-input").value = prompt;
+  aiSendChat();
+}
+
+/* ---- REPORTS (reads live state, asks Claude to format) ---- */
+async function aiGenerateReport(type) {
+  const resultEl = document.getElementById("ai-report-text");
+  const btnsEl = document.getElementById("ai-report-btns");
+  resultEl.style.display = "block";
+  btnsEl.style.display = "none";
+  resultEl.textContent = "Generating report…";
+
+  if (!state.user) { resultEl.textContent = "Please sign in first."; return; }
+
+  const salesTotal = state.sales.reduce((a, s) => a + (s.total || 0), 0);
+  const svcTotal = state.services.reduce((a, s) => a + (s.cost || 0), 0);
+  const invValue = state.inventory.reduce((a, i) => a + ((i.qty || 0) * (i.cost || 0)), 0);
+  const stockValue = state.stock.reduce((a, s) => a + ((s.qty || 0) * (s.cost || 0)), 0);
+  const lowStock = state.stock.filter(s => s.alertLevel && s.qty <= s.alertLevel);
+  const activeEmps = state.employees.filter(e => e.status === "Active");
+  const itemCounts = {};
+  state.sales.forEach(s => { itemCounts[s.item] = (itemCounts[s.item] || 0) + (s.qty || 1); });
+  const topItems = Object.entries(itemCounts).sort((a,b) => b[1]-a[1]).slice(0,5);
+
+  const reportPrompts = {
+    daily: `Write a professional daily business summary report for ${state.user.bizName}. Data: Sales KES ${salesTotal.toLocaleString()}, Services KES ${svcTotal.toLocaleString()}, Combined KES ${(salesTotal+svcTotal).toLocaleString()}, ${state.sales.length} sale transactions, ${state.services.length} service records, ${activeEmps.length} active employees, ${lowStock.length} low stock alerts. Top items: ${topItems.map(e=>e[0]+" ("+e[1]+" units)").join(", ")||"none"}. Format with clear sections, use KES, keep under 200 words.`,
+    inventory: `Write a professional inventory report for ${state.user.bizName}. Data: ${state.inventory.length} inventory items (total value KES ${invValue.toLocaleString()}), ${state.stock.length} stock records (total value KES ${stockValue.toLocaleString()}), ${lowStock.length} items below alert threshold: ${lowStock.map(s=>s.name+" ["+s.qty+" units]").join(", ")||"none"}. Top stocked items: ${state.stock.slice(0,5).map(s=>s.name+" ("+s.qty+" units @ KES "+s.cost+")").join(", ")||"none"}. Format with sections, use KES, under 200 words.`,
+    sales: `Write a professional sales analysis report for ${state.user.bizName}. Data: Total sales KES ${salesTotal.toLocaleString()} across ${state.sales.length} transactions, Services revenue KES ${svcTotal.toLocaleString()} across ${state.services.length} records, Combined revenue KES ${(salesTotal+svcTotal).toLocaleString()}. Top selling items by quantity: ${topItems.map(e=>e[0]+" ("+e[1]+" units)").join(", ")||"none"}. Recent 5 sales: ${[...state.sales].reverse().slice(0,5).map(s=>s.item+" KES "+(s.total||0).toLocaleString()).join(", ")||"none"}. Format with sections, use KES, under 200 words.`,
+    pl: `Write a professional Profit & Loss report for ${state.user.bizName}. Revenue: Sales KES ${salesTotal.toLocaleString()}, Services KES ${svcTotal.toLocaleString()}, Total revenue KES ${(salesTotal+svcTotal).toLocaleString()}. Inventory/stock value on hand: KES ${(invValue+stockValue).toLocaleString()}. Note: full expense tracking is not yet available — flag this clearly in the report. Employees: ${activeEmps.length} active. Format with P&L structure, use KES, under 250 words, include a note on what data would improve accuracy.`
+  };
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: reportPrompts[type] }]
+      })
+    });
+    const data = await res.json();
+    aiCurrentReport = data.content?.map(c => c.text || "").join("") || "Could not generate report.";
+    resultEl.textContent = aiCurrentReport;
+    btnsEl.style.display = "flex";
+  } catch (e) {
+    resultEl.textContent = "Error generating report. Check your connection.";
+  }
+}
+
+function aiCopyReport() {
+  if (navigator.clipboard && aiCurrentReport) {
+    navigator.clipboard.writeText(aiCurrentReport);
+    toast("Report copied to clipboard.", "success");
+  }
+}
+
+function aiShareReport() {
+  if (navigator.share && aiCurrentReport) {
+    navigator.share({ title: state.user?.bizName + " — Report", text: aiCurrentReport });
+  } else {
+    aiCopyReport();
+  }
+}
+
+/* ---- VOICE INPUT ---- */
+function aiToggleVoice() {
+  const btn = document.getElementById("ai-mic-btn");
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    aiAddMsg("Voice input is not supported on this browser. Try Chrome.", "bot");
+    aiTab("chat", document.querySelectorAll(".ai-tab")[0]);
+    return;
+  }
+  if (aiListening) {
+    aiRecognition.stop();
+    aiListening = false;
+    btn.classList.remove("mic-active");
+    btn.textContent = "🎤";
+    return;
+  }
+  aiRecognition = new SR();
+  aiRecognition.lang = "en-KE";
+  aiRecognition.interimResults = false;
+  aiRecognition.onresult = e => {
+    document.getElementById("ai-chat-input").value = e.results[0][0].transcript;
+    aiListening = false;
+    btn.classList.remove("mic-active");
+    btn.textContent = "🎤";
+  };
+  aiRecognition.onerror = aiRecognition.onend = () => {
+    aiListening = false;
+    btn.classList.remove("mic-active");
+    btn.textContent = "🎤";
+  };
+  aiRecognition.start();
+  aiListening = true;
+  btn.classList.add("mic-active");
+  btn.textContent = "🔴";
+}
+</script>
+
+<!-- ============================================
+     FIREBASE SDK (compat build — works with plain
+     <script> tags, no bundler needed)
+     ============================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* =============================================
+   BIZFLOW - app.js
+   Backed by Firebase Auth + Firestore.
+   ============================================= */
+
+"use strict";
+
+/* --
+   FIREBASE CONFIG
+   Replace with YOUR project's values:
+   Firebase Console → Project settings → General →
+   Your apps → SDK setup and configuration
+   -- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBCr8kHQRIuEeccbhVvsCEbud2xrM_c0mk",
+  authDomain: "bizz-manager.firebaseapp.com",
+  projectId: "bizz-manager",
+  storageBucket: "bizz-manager.firebasestorage.app",
+  messagingSenderId: "655353423303",
+  appId: "1:655353423303:web:e65a724f5108d6fa36a5e2"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+// Enable offline persistence — app works without internet, syncs when back online
+db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
+
+/* --
+   IN-MEMORY STATE
+   (kept in sync live by Firestore listeners — see
+   attachListeners() below)
+   -- */
+let state = {
+  user: null,
+  activeBranchId: null,
+  branches: [],
+  inventory: [],
+  stock: [],
+  sales: [],
+  services: [],
+  employees: [],
+  customers: [],
+  expenses: []
+};
+
+let unsubscribers = [];
+function detachListeners() {
+  unsubscribers.forEach(u => u());
+  unsubscribers = [];
+}
+
+async function fetchProfile(uid) {
+  try {
+    const snap = await db.collection("businesses").doc(uid).get();
+    return snap.exists ? snap.data() : null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+function friendlyAuthError(err) {
+  const map = {
+    "auth/invalid-email": "That email address looks invalid.",
+    "auth/user-disabled": "This account has been disabled.",
+    "auth/user-not-found": "No account found with that email.",
+    "auth/wrong-password": "Incorrect password.",
+    "auth/invalid-credential": "Incorrect email or password.",
+    "auth/email-already-in-use": "An account with that email already exists.",
+    "auth/weak-password": "Password is too weak.",
+    "auth/network-request-failed": "Network error — check your connection."
+  };
+  return map[err.code] || err.message || "Something went wrong. Please try again.";
+}
+
+/* --
+   INIT
+   -- */
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("top-date").textContent = new Date().toLocaleDateString("en-KE", {
+    weekday: "short", year: "numeric", month: "short", day: "numeric"
+  });
+  document.getElementById("sale-date").valueAsDate = new Date();
+  document.getElementById("svc-date").valueAsDate = new Date();
+
+  // Inventory live preview
+  ["inv-qty", "inv-cost"].forEach(id =>
+    document.getElementById(id).addEventListener("input", updateInvPreview)
+  );
+
+  // Restore session on reload, or show the auth screen
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const profile = await fetchProfile(user.uid);
+      if (profile) {
+        state.user = { id: user.uid, email: user.email, ...profile };
+        loginSuccess();
+      } else {
+        // Auth account exists but no business profile doc — treat as signed out
+        await auth.signOut();
+      }
+    } else {
+      detachListeners();
+      state = { user: null, activeBranchId: null, branches: [], inventory: [], stock: [], sales: [], services: [], employees: [], customers: [], expenses: [] };
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("auth-screen").classList.remove("hidden");
+    }
+  });
+});
+
+/* --
+   AUTH PANEL SWITCHING
+   -- */
+function showPanel(id) {
+  document.querySelectorAll(".auth-card").forEach(c => c.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function togglePw(inputId, btn) {
+  const el = document.getElementById(inputId);
+  el.type = el.type === "password" ? "text" : "password";
+  btn.textContent = el.type === "password" ? "👁" : "🙈";
+}
+
+/* --
+   AUTH HANDLERS
+   -- */
+async function handleLogin() {
+  const email = v("login-email"), pw = v("login-password");
+  if (!email || !pw) { showError("login-error", "Please fill all fields."); return; }
+
+  try {
+    await auth.signInWithEmailAndPassword(email, pw);
+    // onAuthStateChanged (in INIT, above) picks up the rest
+  } catch (err) {
+    showError("login-error", friendlyAuthError(err));
+  }
+}
+
+async function handleRegister() {
+  const fn = v("reg-firstname"), ln = v("reg-lastname"),
+        biz = v("reg-bizname"), email = v("reg-email"),
+        biztype = v("reg-biztype"), pw = v("reg-password");
+  if (!fn || !ln || !biz || !email || !biztype || !pw)
+    { showError("reg-error", "Please fill all fields."); return; }
+  if (pw.length < 8) { showError("reg-error", "Password must be at least 8 characters."); return; }
+
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, pw);
+    await db.collection("businesses").doc(cred.user.uid).set({
+      firstName: fn, lastName: ln, bizName: biz, bizType: biztype, email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    // onAuthStateChanged (in INIT, above) picks up the rest
+  } catch (err) {
+    showError("reg-error", friendlyAuthError(err));
+  }
+}
+
+async function handleRecover() {
+  const email = v("recover-email");
+  if (!email) { return; }
+
+  try {
+    await auth.sendPasswordResetEmail(email);
+  } catch (err) {
+    // Don't reveal whether the address has an account — fail quietly either way
+  }
+
+  const msg = document.getElementById("recover-msg");
+  msg.textContent = `If an account exists for ${email}, a reset link has been sent.`;
+  msg.classList.remove("hidden");
+}
+
+/* --
+   ONE-TIME MIGRATION: backfill profit & costPrice on old sales records
+   Strategy (in order of confidence):
+   1. Exact name match against stock/inventory
+   2. Fuzzy name match (normalised — strips punctuation, case, extra spaces)
+   3. Peer inference — average costPrice from OTHER sales of the same item
+      that already have a costPrice (works when some sales were recorded after the fix)
+   4. Last resort — costPrice = 0, profit = selling revenue (flags for user review)
+   Runs once per branch, guarded by a 'profitMigrated' flag on the branch doc.
+   Writes in Firestore batches of 500.
+   -- */
+
+function normalizeName(str) {
+  // Lowercase, strip punctuation and extra whitespace for fuzzy comparison
+  return (str || "").toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function fuzzyMatchCost(itemName, costLookup) {
+  const norm = normalizeName(itemName);
+  if (!norm) return null;
+  // 1. Exact normalized match
+  if (costLookup[norm] !== undefined) return costLookup[norm];
+  // 2. One name contains the other (e.g. "Panadol" matches "Panadol Extra 500mg")
+  for (const [key, cost] of Object.entries(costLookup)) {
+    if (key.includes(norm) || norm.includes(key)) return cost;
+  }
+  // 3. Word overlap — match if more than half the words match
+  const normWords = norm.split(" ").filter(Boolean);
+  let bestScore = 0, bestCost = null;
+  for (const [key, cost] of Object.entries(costLookup)) {
+    const keyWords = key.split(" ").filter(Boolean);
+    const overlap  = normWords.filter(w => keyWords.includes(w)).length;
+    const score    = overlap / Math.max(normWords.length, keyWords.length);
+    if (score > 0.5 && score > bestScore) { bestScore = score; bestCost = cost; }
+  }
+  return bestCost; // null if nothing matched
+}
+
+async function migrateSalesProfit() {
+  if (!state.user || !state.branches.length) return;
+
+  const userRef = db.collection("businesses").doc(state.user.id);
+  let totalMigrated = 0, totalFromStock = 0, totalFromPeer = 0, totalUnresolved = 0;
+
+  // Run migration independently for EVERY branch
+  for (const branch of state.branches) {
+    const branchRef    = userRef.collection("branches").doc(branch.id);
+    const branchDoc    = await branchRef.get();
+    if (branchDoc.data()?.profitMigrated) continue; // Already done — skip
+
+    try {
+      const [stockSnap, invSnap, salesSnap] = await Promise.all([
+        branchRef.collection("stock").get(),
+        branchRef.collection("inventory").get(),
+        branchRef.collection("sales").get()
+      ]);
+
+      // Build normalized cost lookup from this branch's stock and inventory
+      const costLookup = {};
+      stockSnap.docs.forEach(d => {
+        const data = d.data();
+        if (data.name) costLookup[normalizeName(data.name)] = Number(data.cost) || 0;
+      });
+      invSnap.docs.forEach(d => {
+        const data = d.data();
+        const key  = normalizeName(data.name);
+        if (data.name && costLookup[key] === undefined)
+          costLookup[key] = Number(data.cost) || 0;
+      });
+
+      // Build peer cost lookup from sales in THIS branch that already have costPrice
+      const peerCosts = {};
+      salesSnap.docs.forEach(d => {
+        const s = d.data();
+        if (s.costPrice !== undefined && Number(s.costPrice) > 0) {
+          const key = normalizeName(s.item);
+          if (!peerCosts[key]) peerCosts[key] = [];
+          peerCosts[key].push(Number(s.costPrice));
+        }
+      });
+      const peerAvg = {};
+      Object.entries(peerCosts).forEach(([key, costs]) => {
+        peerAvg[key] = costs.reduce((a, c) => a + c, 0) / costs.length;
+      });
+
+      const toMigrate = salesSnap.docs.filter(d => d.data().profit === undefined);
+      if (toMigrate.length === 0) {
+        await branchRef.update({ profitMigrated: true });
+        continue;
+      }
+
+      let fromStock = 0, fromPeer = 0, unresolved = 0;
+
+      const BATCH_SIZE = 500;
+      for (let i = 0; i < toMigrate.length; i += BATCH_SIZE) {
+        const batch = db.batch();
+        toMigrate.slice(i, i + BATCH_SIZE).forEach(doc => {
+          const s     = doc.data();
+          const qty   = Number(s.qty)   || 0;
+          const price = Number(s.price) || 0;
+          const norm  = normalizeName(s.item);
+
+          let costPrice = fuzzyMatchCost(s.item, costLookup);
+          if (costPrice !== null) {
+            fromStock++;
+          } else if (peerAvg[norm] !== undefined) {
+            costPrice = peerAvg[norm];
+            fromPeer++;
+          } else {
+            costPrice = 0;
+            unresolved++;
+          }
+
+          batch.update(doc.ref, { costPrice, profit: qty * (price - costPrice) });
+        });
+        await batch.commit();
+      }
+
+      await branchRef.update({ profitMigrated: true });
+
+      totalMigrated   += toMigrate.length;
+      totalFromStock  += fromStock;
+      totalFromPeer   += fromPeer;
+      totalUnresolved += unresolved;
+
+    } catch (err) {
+      console.warn(`Profit migration failed for branch "${branch.name}":`, err.message);
+    }
+  }
+
+  if (totalMigrated > 0) {
+    const parts = [`${totalMigrated} sale${totalMigrated !== 1 ? "s" : ""} updated across all branches`];
+    if (totalFromStock)    parts.push(`${totalFromStock} matched from stock`);
+    if (totalFromPeer)     parts.push(`${totalFromPeer} inferred from similar sales`);
+    if (totalUnresolved)   parts.push(`${totalUnresolved} cost unknown — set to 0`);
+    toast("Profit migration: " + parts.join(" · ") + " ✓", "success");
+  }
+}
+
+async function loginSuccess() {
+  document.getElementById("auth-screen").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  const u = state.user;
+  const initials = ((u.firstName?.[0] || "?") + (u.lastName?.[0] || "")).toUpperCase();
+  document.getElementById("sidebar-avatar").textContent = initials;
+  document.getElementById("sidebar-name").textContent = `${u.firstName} ${u.lastName}`;
+  document.getElementById("sidebar-biz").textContent = u.bizName;
+  await loadBranches();
+  // One-time migration: backfill profit/costPrice on old sales records
+  await migrateSalesProfit();
+}
+
+async function handleLogout() {
+  await auth.signOut();
+  // onAuthStateChanged (in INIT, above) detaches listeners and shows the auth screen
+  showPanel("login-panel");
+}
+
+/* --
+   FIRESTORE LISTENERS
+   Each business's data lives under businesses/{uid}/...
+   Listeners keep `state` live-synced; CRUD functions
+   below just write to Firestore and let the snapshot
+   update the UI.
+   -- */
+function bizRef() {
+  // Each branch lives at businesses/{uid}/branches/{branchId}
+  // If no branch selected yet, fall back to root (shouldn't happen after init)
+  if (state.activeBranchId) {
+    return db.collection("businesses").doc(state.user.id)
+              .collection("branches").doc(state.activeBranchId);
+  }
+  return db.collection("businesses").doc(state.user.id);
+}
+
+function attachListeners() {
+  detachListeners();
+  const biz = bizRef();
+
+  unsubscribers.push(biz.collection("inventory").orderBy("createdAt").onSnapshot(snap => {
+    state.inventory = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderInventory();
+  }, err => toast("Inventory sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("stock").orderBy("createdAt").onSnapshot(snap => {
+    state.stock = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderStock();
+  }, err => toast("Stock sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("sales").orderBy("createdAt").onSnapshot(snap => {
+    state.sales = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderSales();
+  }, err => toast("Sales sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("services").orderBy("createdAt").onSnapshot(snap => {
+    state.services = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderServices();
+  }, err => toast("Services sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("employees").orderBy("createdAt").onSnapshot(snap => {
+    state.employees = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderEmployees();
+  }, err => toast("Employees sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("customers").orderBy("createdAt").onSnapshot(snap => {
+    state.customers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderCustomers();
+  }, err => toast("Customers sync error: " + err.message, "error")));
+
+  unsubscribers.push(biz.collection("expenses").orderBy("createdAt").onSnapshot(snap => {
+    state.expenses = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderExpenses();
+  }, err => toast("Expenses sync error: " + err.message, "error")));
+}
+
+/* --
+   NAVIGATION
+   -- */
+function navigate(page, el) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById("page-" + page).classList.add("active");
+  document.getElementById("page-title").textContent = el.textContent.trim();
+  if (el) el.classList.add("active");
+  if (window.innerWidth <= 768) closeSidebar();
+  if (page === "dashboard") renderDashboard();
+  if (page === "sales" || page === "services") populateEmployeeDropdowns();
+  if (page === "analytics") renderAnalytics();
+  if (page === "expenses") renderExpenses();
+  if (page === "customers") renderCustomers();
+}
+
+/* --
+   SIDEBAR
+   -- */
+function toggleSidebar() {
+  const sb = document.getElementById("sidebar");
+  const ov = document.getElementById("sidebar-overlay");
+  sb.classList.toggle("open");
+  ov.classList.toggle("hidden");
+  document.body.style.overflow = sb.classList.contains("open") ? "hidden" : "";
+}
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sidebar-overlay").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+/* --
+   MODALS
+   -- */
+function openModal(id) {
+  document.getElementById(id).classList.remove("hidden");
+  if (id === "sale-modal" || id === "svc-modal") populateEmployeeDropdowns();
+  if (id === "sale-modal") document.getElementById("sale-receipt-btn").style.display = "none";
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.add("hidden");
+  clearModalInputs(id);
+}
+
+function clearModalInputs(id) {
+  document.querySelectorAll("#" + id + " input, #" + id + " select, #" + id + " textarea")
+    .forEach(el => el.value = "");
+  const previews = document.querySelectorAll("#" + id + " .total-preview strong");
+  previews.forEach(p => p.textContent = "KES 0.00");
+}
+
+/* --
+   LIVE PREVIEW HELPERS
+   -- */
+function updateInvPreview() {
+  const qty = parseFloat(v("inv-qty")) || 0;
+  const cost = parseFloat(v("inv-cost")) || 0;
+  document.getElementById("inv-total-preview").textContent = fmt(qty * cost);
+}
+
+function updateStockPreview() {
+  const qty = parseFloat(v("stock-qty")) || 0;
+  const cost = parseFloat(v("stock-cost")) || 0;
+  document.getElementById("stock-total-preview").textContent = fmt(qty * cost);
+}
+
+function updateSalePreview() {
+  const qty   = parseFloat(v("sale-qty"))   || 0;
+  const price = parseFloat(v("sale-price")) || 0;
+  const cost  = parseFloat(v("sale-cost"))  || 0;
+  const total  = qty * price;
+  const profit = qty * (price - cost);
+  document.getElementById("sale-total-preview").textContent = fmt(total);
+  const profitEl = document.getElementById("sale-profit-preview");
+  if (profitEl) {
+    profitEl.textContent = fmt(profit);
+    profitEl.style.color = profit >= 0 ? "var(--green)" : "var(--red)";
+  }
+}
+
+function autoFillCostFromStock() {
+  const itemName = v("sale-item").trim().toLowerCase();
+  if (!itemName) return;
+  const match = state.stock.find(s => s.name?.toLowerCase() === itemName)
+             || state.inventory.find(i => i.name?.toLowerCase() === itemName);
+  if (match && match.cost) {
+    set("sale-cost", match.cost);
+    updateSalePreview();
+  }
+}
+
+/* --
+   INVENTORY
+   -- */
+async function saveInventory() {
+  const name = v("inv-name"), cat = v("inv-category"),
+        qty = parseFloat(v("inv-qty")) || 0,
+        cost = parseFloat(v("inv-cost")) || 0,
+        editId = v("inv-edit-id");
+
+  if (!name) { toast("Item name is required.", "error"); return; }
+
+  const row = { name, category: cat, qty, cost };
+  const ref = bizRef().collection("inventory");
+
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("inv-modal");
+    toast(editId ? "Item updated." : "Item added.", "success");
+  } catch (err) {
+    toast("Could not save item: " + err.message, "error");
+  }
+}
+
+async function deleteInventory(id) {
+  if (!confirm("Delete this item?")) return;
+  try {
+    await bizRef().collection("inventory").doc(id).delete();
+    toast("Item deleted.", "info");
+  } catch (err) {
+    toast("Could not delete item: " + err.message, "error");
+  }
+}
+
+function editInventory(id) {
+  const item = state.inventory.find(i => i.id === id);
+  if (!item) return;
+  set("inv-edit-id", id);
+  set("inv-name", item.name);
+  set("inv-category", item.category);
+  set("inv-qty", item.qty);
+  set("inv-cost", item.cost);
+  updateInvPreview();
+  document.getElementById("inv-modal-title").textContent = "Edit Item";
+  openModal("inv-modal");
+}
+
+function renderInventory() {
+  const tbody = document.getElementById("inv-body");
+  if (!state.inventory.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No items yet. Add your first item.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = state.inventory.map(i => `
+    <tr>
+      <td>${esc(i.name)}</td>
+      <td>${esc(i.category)}</td>
+      <td>${i.qty}</td>
+      <td>${fmt(i.cost)}</td>
+      <td>${fmt(i.qty * i.cost)}</td>
+      <td>
+        <button class="btn-icon" onclick="editInventory('${i.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteInventory('${i.id}')">🗑️</button>
+      </td>
+    </tr>`).join("");
+  refreshStockStats();
+}
+
+/* --
+   STOCK
+   -- */
+async function saveStock() {
+  const name = v("stock-name"), qty = parseFloat(v("stock-qty")) || 0,
+        cost = parseFloat(v("stock-cost")) || 0,
+        alert = parseInt(v("stock-alert")) || 5,
+        editId = v("stock-edit-id");
+
+  if (!name) { toast("Item name is required.", "error"); return; }
+
+  const row = { name, qty, cost, alert };
+  const ref = bizRef().collection("stock");
+
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("stock-modal");
+    toast(editId ? "Stock updated." : "Stock entry added.", "success");
+  } catch (err) {
+    toast("Could not save stock entry: " + err.message, "error");
+  }
+}
+
+async function deleteStock(id) {
+  if (!confirm("Delete this stock entry?")) return;
+  try {
+    await bizRef().collection("stock").doc(id).delete();
+    toast("Entry deleted.", "info");
+  } catch (err) {
+    toast("Could not delete entry: " + err.message, "error");
+  }
+}
+
+function editStock(id) {
+  const item = state.stock.find(s => s.id === id);
+  if (!item) return;
+  set("stock-edit-id", id);
+  set("stock-name", item.name);
+  set("stock-qty", item.qty);
+  set("stock-cost", item.cost);
+  set("stock-alert", item.alert);
+  updateStockPreview();
+  openModal("stock-modal");
+}
+
+function renderStock() {
+  const tbody = document.getElementById("stock-body");
+  if (!state.stock.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No stock entries yet.</td></tr>`;
+    refreshStockStats(); return;
+  }
+  tbody.innerHTML = state.stock.map(s => {
+    const status = s.qty <= 0 ? ["badge-red","Out of Stock"] : s.qty <= s.alert ? ["badge-orange","Low Stock"] : ["badge-green","In Stock"];
+    return `<tr>
+      <td>${esc(s.name)}</td>
+      <td>${s.qty}</td>
+      <td>${fmt(s.cost)}</td>
+      <td>${fmt(s.qty * s.cost)}</td>
+      <td><span class="badge ${status[0]}">${status[1]}</span></td>
+      <td>
+        <button class="btn-icon" onclick="editStock('${s.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteStock('${s.id}')">🗑️</button>
+      </td>
+    </tr>`;
+  }).join("");
+  refreshStockStats();
+}
+
+function refreshStockStats() {
+  const total = state.stock.reduce((a, s) => a + s.qty * s.cost, 0);
+  const low = state.stock.filter(s => s.qty <= s.alert && s.qty > 0).length;
+  document.getElementById("stock-total-items").textContent = state.stock.length;
+  document.getElementById("stock-total-value").textContent = fmt(total);
+  document.getElementById("stock-low").textContent = low;
+  document.getElementById("dash-stock-items").textContent = state.stock.length;
+}
+
+/* --
+   SALES
+   -- */
+async function saveSale() {
+  const item = v("sale-item"), empId = v("sale-employee"),
+        qty = parseFloat(v("sale-qty")) || 0,
+        price = parseFloat(v("sale-price")) || 0,
+        date = v("sale-date"), editId = v("sale-edit-id"),
+        customerName = v("sale-customer") || "Walk-in",
+        customerPhone = v("sale-customer-phone") || "",
+        payment = v("sale-payment") || "Cash",
+        mpesaRef = v("sale-mpesa-ref") || "";
+
+  if (!item || !qty || !price) { toast("Fill item, qty, and price.", "error"); return; }
+
+  const empName  = empId ? (state.employees.find(e => e.id === empId)?.name || "-") : "-";
+  const total    = qty * price;
+  const costPrice = parseFloat(v("sale-cost")) || 0;
+  const profit   = qty * (price - costPrice);          // Real profit: (sell − cost) × qty
+  const row = { item, empId: empId || "", empName, qty, price, costPrice, profit, total, date: date || today(), customerName, customerPhone, payment, mpesaRef };
+  const ref = bizRef().collection("sales");
+
+  try {
+    let savedId = editId;
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      const docRef = await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      savedId = docRef.id;
+      // Auto-save/update customer record if name provided
+      if (customerName && customerName !== "Walk-in") {
+        upsertCustomerFromSale(customerName, customerPhone, total, date || today());
+      }
+    }
+    // Show receipt button after save
+    document.getElementById("sale-receipt-btn").style.display = "inline-block";
+    document.getElementById("sale-receipt-btn").onclick = () => showReceipt({ item, qty, price, total, customerName, payment, mpesaRef, empName, date: date || today() });
+    toast(editId ? "Sale updated." : "Sale recorded. ✓", "success");
+  } catch (err) {
+    toast("Could not save sale: " + err.message, "error");
+  }
+}
+
+async function deleteSale(id) {
+  if (!confirm("Delete this sale?")) return;
+  try {
+    await bizRef().collection("sales").doc(id).delete();
+    toast("Sale deleted.", "info");
+  } catch (err) {
+    toast("Could not delete sale: " + err.message, "error");
+  }
+}
+
+function editSale(id) {
+  const rec = state.sales.find(s => s.id === id);
+  if (!rec) return;
+  set("sale-edit-id", id);
+  set("sale-item", rec.item);
+  set("sale-customer", rec.customerName || "");
+  set("sale-customer-phone", rec.customerPhone || "");
+  set("sale-employee", rec.empId);
+  set("sale-qty", rec.qty);
+  set("sale-price", rec.price);
+  set("sale-cost", rec.costPrice || 0);
+  set("sale-payment", rec.payment || "Cash");
+  set("sale-mpesa-ref", rec.mpesaRef || "");
+  set("sale-date", rec.date);
+  document.getElementById("sale-receipt-btn").style.display = "none";
+  updateSalePreview();
+  openModal("sale-modal");
+}
+
+function renderSales() {
+  const tbody = document.getElementById("sales-body");
+  const revenue     = state.sales.reduce((a, s) => a + (Number(s.total)  || 0), 0);
+  const grossProfit = state.sales.reduce((a, s) => a + (Number(s.profit) || 0), 0);
+  document.getElementById("sales-total").textContent = fmt(revenue);
+  document.getElementById("sales-count").textContent = state.sales.length;
+  // Update gross profit display if element exists
+  const gpEl = document.getElementById("sales-gross-profit");
+  if (gpEl) gpEl.textContent = fmt(grossProfit);
+
+  if (!state.sales.length) {
+    tbody.innerHTML = `<tr><td colspan="11" class="empty-row">No sales recorded yet.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = [...state.sales].reverse().map(s => {
+    const profit = Number(s.profit) || 0;
+    return `
+    <tr>
+      <td>${esc(s.item)}</td>
+      <td>${s.qty}</td>
+      <td>${fmt(s.price)}</td>
+      <td>${s.costPrice ? fmt(s.costPrice) : '<span style="color:var(--text3)">—</span>'}</td>
+      <td>${fmt(Number(s.total) || 0)}</td>
+      <td style="color:${profit >= 0 ? 'var(--green)' : 'var(--red)'}"><strong>${fmt(profit)}</strong></td>
+      <td>${esc(s.customerName || "Walk-in")}</td>
+      <td><span class="badge ${s.payment==='M-Pesa'?'badge-green':s.payment==='Credit'?'badge-orange':'badge-blue'}">${esc(s.payment||'Cash')}</span></td>
+      <td>${esc(s.empName || "-")}</td>
+      <td>${fmtDate(s.date)}</td>
+      <td>
+        <button class="btn-icon" onclick="showReceipt(${JSON.stringify(s).replace(/"/g,'&quot;')})">🧾</button>
+        <button class="btn-icon" onclick="editSale('${s.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteSale('${s.id}')">🗑️</button>
+      </td>
+    </tr>`;
+  }).join("");
+  renderDashboard();
+}
+
+/* --
+   SERVICES
+   -- */
+async function saveService() {
+  const type = v("svc-type"), desc = v("svc-desc"),
+        empId = v("svc-employee"), cost = parseFloat(v("svc-cost")) || 0,
+        date = v("svc-date"), editId = v("svc-edit-id");
+
+  if (!type || !cost) { toast("Fill service type and cost.", "error"); return; }
+
+  const empName = empId ? (state.employees.find(e => e.id === empId)?.name || "-") : "-";
+  const row = { type, desc, empId: empId || "", empName, cost, date: date || today() };
+  const ref = bizRef().collection("services");
+
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("svc-modal");
+    toast(editId ? "Service updated." : "Service added.", "success");
+  } catch (err) {
+    toast("Could not save service: " + err.message, "error");
+  }
+}
+
+async function deleteService(id) {
+  if (!confirm("Delete this service record?")) return;
+  try {
+    await bizRef().collection("services").doc(id).delete();
+    toast("Service deleted.", "info");
+  } catch (err) {
+    toast("Could not delete service: " + err.message, "error");
+  }
+}
+
+function editService(id) {
+  const rec = state.services.find(s => s.id === id);
+  if (!rec) return;
+  set("svc-edit-id", id);
+  set("svc-type", rec.type);
+  set("svc-desc", rec.desc);
+  set("svc-employee", rec.empId);
+  set("svc-cost", rec.cost);
+  set("svc-date", rec.date);
+  openModal("svc-modal");
+}
+
+function renderServices() {
+  const tbody = document.getElementById("svc-body");
+  const total = state.services.reduce((a, s) => a + s.cost, 0);
+  document.getElementById("svc-total").textContent = fmt(total);
+  document.getElementById("svc-count").textContent = state.services.length;
+
+  if (!state.services.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No services recorded yet.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = [...state.services].reverse().map(s => `
+    <tr>
+      <td>${esc(s.type)}</td>
+      <td class="desc-cell">${esc(s.desc)}</td>
+      <td><strong>${fmt(s.cost)}</strong></td>
+      <td>${esc(s.empName)}</td>
+      <td>${fmtDate(s.date)}</td>
+      <td>
+        <button class="btn-icon" onclick="editService('${s.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteService('${s.id}')">🗑️</button>
+      </td>
+    </tr>`).join("");
+  renderDashboard();
+}
+
+/* --
+   EMPLOYEES
+   -- */
+async function saveEmployee() {
+  const fn = v("emp-firstname"), ln = v("emp-lastname"),
+        role = v("emp-role"), email = v("emp-email"),
+        phone = v("emp-phone"), status = v("emp-status"),
+        editId = v("emp-edit-id");
+
+  if (!fn || !ln || !role) { toast("Name and role are required.", "error"); return; }
+
+  const name = `${fn} ${ln}`;
+  const row = { name, role, email, phone, status };
+  const ref = bizRef().collection("employees");
+
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("emp-modal");
+    toast(editId ? "Employee updated." : "Employee added.", "success");
+  } catch (err) {
+    toast("Could not save employee: " + err.message, "error");
+  }
+}
+
+async function deleteEmployee(id) {
+  if (!confirm("Delete this employee?")) return;
+  try {
+    await bizRef().collection("employees").doc(id).delete();
+    toast("Employee deleted.", "info");
+  } catch (err) {
+    toast("Could not delete employee: " + err.message, "error");
+  }
+}
+
+function editEmployee(id) {
+  const emp = state.employees.find(e => e.id === id);
+  if (!emp) return;
+  const [fn, ...lnParts] = emp.name.split(" ");
+  set("emp-edit-id", id);
+  set("emp-firstname", fn);
+  set("emp-lastname", lnParts.join(" "));
+  set("emp-role", emp.role);
+  set("emp-email", emp.email);
+  set("emp-phone", emp.phone);
+  set("emp-status", emp.status);
+  document.getElementById("emp-modal-title").textContent = "Edit Employee";
+  openModal("emp-modal");
+}
+
+function renderEmployees() {
+  const tbody = document.getElementById("emp-body");
+  document.getElementById("dash-employees").textContent = state.employees.filter(e => e.status === "Active").length;
+
+  if (!state.employees.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No employees yet.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = state.employees.map(e => {
+    const badgeCls = e.status === "Active" ? "badge-green" : e.status === "On Leave" ? "badge-orange" : "badge-red";
+    return `<tr>
+      <td><strong>${esc(e.name)}</strong></td>
+      <td>${esc(e.role)}</td>
+      <td>${esc(e.email)}</td>
+      <td>${esc(e.phone)}</td>
+      <td><span class="badge ${badgeCls}">${esc(e.status)}</span></td>
+      <td>
+        <button class="btn-icon" onclick="editEmployee('${e.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteEmployee('${e.id}')">🗑️</button>
+      </td>
+    </tr>`;
+  }).join("");
+  populateEmployeeDropdowns();
+}
+
+function populateEmployeeDropdowns() {
+  ["sale-employee", "svc-employee"].forEach(id => {
+    const sel = document.getElementById(id);
+    const cur = sel.value;
+    sel.innerHTML = `<option value="">Select employee</option>` +
+      state.employees.filter(e => e.status === "Active").map(e =>
+        `<option value="${e.id}">${esc(e.name)}</option>`).join("");
+    if (cur) sel.value = cur;
+  });
+}
+
+/* --
+   DASHBOARD
+   -- */
+function renderDashboard() {
+  const salesRevenue  = state.sales.reduce((a, s) => a + (Number(s.total)  || 0), 0);
+  const grossProfit   = state.sales.reduce((a, s) => a + (Number(s.profit) || 0), 0);
+  const svcTotal      = state.services.reduce((a, s) => a + (Number(s.cost) || 0), 0);
+  const expTotal      = state.expenses.reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const totalRevenue  = salesRevenue + svcTotal;
+  const netProfit     = grossProfit + svcTotal - expTotal;  // Gross profit on sales + service revenue - expenses
+
+  document.getElementById("dash-total-sales").textContent    = fmt(salesRevenue);
+  document.getElementById("dash-sales-count").textContent    = `${state.sales.length} transactions`;
+  document.getElementById("dash-total-services").textContent = fmt(svcTotal);
+  document.getElementById("dash-services-count").textContent = `${state.services.length} transactions`;
+  document.getElementById("dash-total-revenue").textContent  = fmt(totalRevenue);
+  document.getElementById("dash-total-expenses").textContent = fmt(expTotal);
+  document.getElementById("dash-expenses-sub").textContent   = `${state.expenses.length} entries`;
+
+  const netEl  = document.getElementById("dash-net-profit");
+  const netSub = document.getElementById("dash-net-sub");
+  netEl.textContent  = fmt(netProfit);
+  netEl.style.color  = netProfit >= 0 ? "var(--green)" : "var(--red)";
+  netSub.textContent = netProfit >= 0 ? "Profitable ✓" : "Operating at a loss ✗";
+
+  const activeEmp = state.employees.filter(e => e.status === "Active").length;
+  document.getElementById("dash-stock-items").textContent = state.stock.length;
+  document.getElementById("dash-employees").textContent   = activeEmp;
+
+  // Recent sales (last 10)
+  const salesBody = document.getElementById("dash-sales-body");
+  const recentSales = [...state.sales].reverse().slice(0, 10);
+  salesBody.innerHTML = recentSales.length
+    ? recentSales.map(s => `<tr>
+        <td>${esc(s.item)}</td>
+        <td>${esc(s.empName || "-")}</td>
+        <td>${fmt(Number(s.total) || 0)}</td>
+        <td>${fmtDate(s.date)}</td>
+      </tr>`).join("")
+    : `<tr><td colspan="4" class="empty-row">No sales yet</td></tr>`;
+
+  // Recent services (last 10)
+  const svcBody = document.getElementById("dash-svc-body");
+  const recentSvc = [...state.services].reverse().slice(0, 10);
+  svcBody.innerHTML = recentSvc.length
+    ? recentSvc.map(s => `<tr>
+        <td>${esc(s.type || "-")}</td>
+        <td>${esc(s.empName || "-")}</td>
+        <td>${fmt(Number(s.cost) || 0)}</td>
+        <td>${fmtDate(s.date)}</td>
+      </tr>`).join("")
+    : `<tr><td colspan="4" class="empty-row">No services yet</td></tr>`;
+}
+
+/* --
+   CALCULATOR
+   -- */
+let calcState = { display: "0", prev: null, op: null, fresh: true };
+
+function calcNum(n) {
+  if (calcState.fresh) { calcState.display = n; calcState.fresh = false; }
+  else if (calcState.display.length < 15) { calcState.display = calcState.display === "0" ? n : calcState.display + n; }
+  updateCalcDisplay();
+}
+function calcDot() {
+  if (calcState.fresh) { calcState.display = "0."; calcState.fresh = false; }
+  else if (!calcState.display.includes(".")) calcState.display += ".";
+  updateCalcDisplay();
+}
+function calcOp(op) {
+  calcState.prev = parseFloat(calcState.display);
+  calcState.op = op;
+  calcState.fresh = true;
+  document.getElementById("calc-expr").textContent = `${calcState.prev} ${op}`;
+}
+function calcEquals() {
+  if (calcState.prev === null || !calcState.op) return;
+  const a = calcState.prev, b = parseFloat(calcState.display);
+  let result;
+  switch (calcState.op) {
+    case "+": result = a + b; break;
+    case "−": result = a - b; break;
+    case "×": result = a * b; break;
+    case "÷": result = b !== 0 ? a / b : "Error"; break;
+    case "%": result = a * (b / 100); break;
+    default: result = b;
+  }
+  const expr = `${a} ${calcState.op} ${b} =`;
+  document.getElementById("calc-expr").textContent = expr;
+  calcState.display = result === "Error" ? "Error" : String(parseFloat(result.toFixed(10)));
+  calcState.prev = null; calcState.op = null; calcState.fresh = true;
+  updateCalcDisplay();
+  addCalcHistory(`${expr} ${calcState.display}`);
+}
+function calcClear() { calcState = { display: "0", prev: null, op: null, fresh: true }; document.getElementById("calc-expr").textContent = ""; updateCalcDisplay(); }
+function calcToggleSign() { calcState.display = String(-parseFloat(calcState.display)); updateCalcDisplay(); }
+function updateCalcDisplay() { document.getElementById("calc-val").textContent = calcState.display; }
+function addCalcHistory(entry) {
+  const list = document.getElementById("calc-history-list");
+  const li = document.createElement("li");
+  li.textContent = entry;
+  if (list.querySelector(".empty-row")) list.innerHTML = "";
+  list.insertBefore(li, list.firstChild);
+  if (list.children.length > 50) list.removeChild(list.lastChild);
+}
+function clearCalcHistory() { document.getElementById("calc-history-list").innerHTML = `<li class="empty-row">No calculations yet</li>`; }
+
+/* --
+   TABLE FILTER
+   -- */
+function filterTable(input, tbodyId) {
+  const q = input.value.toLowerCase();
+  const rows = document.getElementById(tbodyId).querySelectorAll("tr");
+  rows.forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+  });
+}
+
+/* --
+   PDF EXPORT
+   -- */
+function exportTablePDF(tableId, title) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+  doc.text(title, 14, 18);
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(120);
+  doc.text(`${state.user?.bizName || "Bizz Manager"} · Exported: ${new Date().toLocaleDateString()}`, 14, 26);
+  doc.setTextColor(0);
+
+  const table = document.getElementById(tableId);
+  const headers = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim()).filter(t => t !== "Actions");
+  const rows = [...table.querySelectorAll("tbody tr")].filter(r => r.style.display !== "none").map(tr =>
+    [...tr.querySelectorAll("td")].slice(0, headers.length).map(td => td.textContent.trim())
+  );
+
+  doc.autoTable({
+    head: [headers],
+    body: rows,
+    startY: 32,
+    headStyles: { fillColor: [79, 123, 255], textColor: 255, fontStyle: "bold" },
+    alternateRowStyles: { fillColor: [245, 247, 255] },
+    styles: { fontSize: 10, cellPadding: 4 },
+    margin: { left: 14, right: 14 }
+  });
+
+  doc.save(`${title.replace(/\s+/g, "_").toLowerCase()}_${today()}.pdf`);
+  toast(`${title} exported as PDF.`, "success");
+  if (state.branches.length > 1) loadBranchComparison();
+  const branchCard = document.getElementById("branch-compare-card");
+  if (branchCard) branchCard.style.display = state.branches.length > 1 ? "block" : "none";
+}
+
+/* --
+   BRANCH MANAGEMENT
+   -- */
+async function loadBranches() {
+  const branchesRef = db.collection("businesses").doc(state.user.id).collection("branches");
+  const snap = await branchesRef.orderBy("createdAt").get();
+
+  if (snap.empty) {
+    // First login — create default "Main Branch" automatically
+    const docRef = await branchesRef.add({
+      name: state.user.bizName || "Main Branch",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    state.branches = [{ id: docRef.id, name: state.user.bizName || "Main Branch" }];
+  } else {
+    state.branches = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  }
+
+  // Restore last active branch from localStorage, or default to first
+  const savedBranchId = localStorage.getItem("activeBranch_" + state.user.id);
+  const savedBranch = state.branches.find(b => b.id === savedBranchId);
+  await switchBranch(savedBranch ? savedBranch.id : state.branches[0].id, false);
+  renderBranchSwitcher();
+}
+
+async function switchBranch(branchId, showToast = true) {
+  detachListeners();
+  state.activeBranchId = branchId;
+  localStorage.setItem("activeBranch_" + state.user.id, branchId);
+
+  const branch = state.branches.find(b => b.id === branchId);
+  const label = branch?.name || "Branch";
+
+  // Update switcher label
+  const labelEl = document.getElementById("branch-current-label");
+  if (labelEl) labelEl.textContent = label;
+
+  // Update dashboard banner
+  const banner = document.getElementById("cross-branch-banner");
+  const bannerLabel = document.getElementById("cross-branch-viewing");
+  const bannerSub = document.getElementById("cross-branch-sub");
+  if (banner && state.branches.length > 1) {
+    banner.style.display = "flex";
+    if (bannerLabel) bannerLabel.textContent = label;
+    if (bannerSub) bannerSub.textContent = `${state.branches.length} branches total · switch from sidebar`;
+  } else if (banner) {
+    banner.style.display = "none";
+  }
+
+  // Reset state collections
+  state.inventory = []; state.stock = []; state.sales = [];
+  state.services = []; state.employees = []; state.customers = []; state.expenses = [];
+
+  attachListeners();
+  renderDashboard();
+  renderBranchSwitcher();
+  closeBranchDropdown();
+  if (showToast) toast(`Switched to ${label}`, "success");
+}
+
+function renderBranchSwitcher() {
+  const list = document.getElementById("branch-options-list");
+  if (!list) return;
+  list.innerHTML = state.branches.map(b => `
+    <button class="branch-option ${b.id === state.activeBranchId ? 'active-branch' : ''}"
+            onclick="switchBranch('${b.id}')">
+      <span style="font-size:14px">${b.id === state.activeBranchId ? '🟢' : '⚫'}</span>
+      ${esc(b.name)}
+      ${b.id === state.activeBranchId ? '<span class="b-check">✓</span>' : ''}
+    </button>`).join("");
+}
+
+function toggleBranchDropdown() {
+  const dd = document.getElementById("branch-dropdown");
+  const ch = document.getElementById("branch-chevron");
+  const isOpen = dd.classList.contains("open");
+  dd.classList.toggle("open", !isOpen);
+  ch.classList.toggle("open", !isOpen);
+}
+
+function closeBranchDropdown() {
+  document.getElementById("branch-dropdown")?.classList.remove("open");
+  document.getElementById("branch-chevron")?.classList.remove("open");
+}
+
+function openBranchManager() {
+  closeBranchDropdown();
+  renderBranchManagerList();
+  openModal("branch-modal");
+}
+
+function renderBranchManagerList() {
+  const el = document.getElementById("branch-manager-list");
+  if (!el) return;
+  if (!state.branches.length) { el.innerHTML = `<div style="font-size:13px;color:var(--text3)">No branches yet.</div>`; return; }
+  el.innerHTML = state.branches.map(b => `
+    <div class="branch-list-item">
+      <div>
+        <div class="branch-list-name">${esc(b.name)}</div>
+      </div>
+      ${b.id === state.activeBranchId
+        ? `<span class="branch-active-badge">Active</span>`
+        : `<button class="btn-sm" onclick="switchBranch('${b.id}');renderBranchManagerList()">Switch</button>`}
+      <div class="branch-list-actions">
+        <button class="btn-icon" onclick="renameBranch('${b.id}','${esc(b.name)}')">✏️</button>
+        ${state.branches.length > 1
+          ? `<button class="btn-icon danger" onclick="deleteBranch('${b.id}')">🗑️</button>`
+          : ''}
+      </div>
+    </div>`).join("");
+}
+
+async function addBranch() {
+  const name = v("new-branch-name");
+  if (!name) { toast("Enter a branch name.", "error"); return; }
+  try {
+    const ref = await db.collection("businesses").doc(state.user.id)
+                        .collection("branches").add({
+                          name,
+                          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+    state.branches.push({ id: ref.id, name });
+    set("new-branch-name", "");
+    renderBranchManagerList();
+    renderBranchSwitcher();
+    toast(`Branch "${name}" added.`, "success");
+  } catch (err) {
+    toast("Could not add branch: " + err.message, "error");
+  }
+}
+
+async function renameBranch(id, currentName) {
+  const newName = prompt("Rename branch:", currentName);
+  if (!newName || newName === currentName) return;
+  try {
+    await db.collection("businesses").doc(state.user.id)
+            .collection("branches").doc(id).update({ name: newName });
+    const b = state.branches.find(x => x.id === id);
+    if (b) b.name = newName;
+    renderBranchManagerList();
+    renderBranchSwitcher();
+    if (id === state.activeBranchId) {
+      document.getElementById("branch-current-label").textContent = newName;
+      document.getElementById("cross-branch-viewing").textContent = newName;
+    }
+    toast(`Renamed to "${newName}".`, "success");
+  } catch (err) {
+    toast("Could not rename: " + err.message, "error");
+  }
+}
+
+async function deleteBranch(id) {
+  if (state.branches.length <= 1) { toast("You must have at least one branch.", "error"); return; }
+  const branch = state.branches.find(b => b.id === id);
+  if (!confirm(`Delete branch "${branch?.name}"? This will permanently delete ALL its data (sales, stock, inventory, etc.).`)) return;
+  try {
+    // Firestore doesn't auto-delete subcollections from client SDK — delete known collections manually
+    const subcols = ["inventory","stock","sales","services","employees","customers","expenses"];
+    for (const col of subcols) {
+      const snap = await bizRef().collection(col).get().catch(() => null);
+      // Only delete if this is the active branch (we can read it)
+      if (id === state.activeBranchId && snap) {
+        const batch = db.batch();
+        snap.docs.forEach(d => batch.delete(d.ref));
+        await batch.commit();
+      }
+    }
+    await db.collection("businesses").doc(state.user.id).collection("branches").doc(id).delete();
+    state.branches = state.branches.filter(b => b.id !== id);
+    if (id === state.activeBranchId) {
+      await switchBranch(state.branches[0].id, false);
+    }
+    renderBranchManagerList();
+    renderBranchSwitcher();
+    toast(`Branch deleted.`, "info");
+  } catch (err) {
+    toast("Could not delete branch: " + err.message, "error");
+  }
+}
+
+/* Branch comparison — reads sales from all branches in parallel */
+async function loadBranchComparison() {
+  const tableEl = document.getElementById("branch-compare-table");
+  if (tableEl) tableEl.textContent = "Loading…";
+
+  try {
+    const results = await Promise.all(state.branches.map(async branch => {
+      const salesSnap = await db.collection("businesses").doc(state.user.id)
+                                .collection("branches").doc(branch.id)
+                                .collection("sales").get();
+      const svcSnap = await db.collection("businesses").doc(state.user.id)
+                              .collection("branches").doc(branch.id)
+                              .collection("services").get();
+      const salesRev = salesSnap.docs.reduce((a, d) => a + (d.data().total || 0), 0);
+      const svcRev = svcSnap.docs.reduce((a, d) => a + (d.data().cost || 0), 0);
+      return { name: branch.name, sales: salesRev, services: svcRev, total: salesRev + svcRev, txn: salesSnap.size };
+    }));
+
+    // Chart
+    const ctx = document.getElementById("chart-branches")?.getContext("2d");
+    if (ctx) {
+      if (_charts.branches) _charts.branches.destroy();
+      _charts.branches = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: results.map(r => r.name),
+          datasets: [
+            { label: "Sales", data: results.map(r => r.sales), backgroundColor: "#4f7bff", borderRadius: 4 },
+            { label: "Services", data: results.map(r => r.services), backgroundColor: "#a855f7", borderRadius: 4 }
+          ]
+        },
+        options: {
+          plugins: { legend: { labels: { color: "#8b93a8", font: { size: 11 } } } },
+          scales: {
+            y: { ticks: { callback: v => "KES " + Number(v).toLocaleString("en-KE"), color: "#8b93a8" }, grid: { color: "#2a3347" } },
+            x: { ticks: { color: "#8b93a8" }, grid: { display: false } }
+          },
+          responsive: true
+        }
+      });
+    }
+
+    // Table
+    if (tableEl) {
+      tableEl.innerHTML = `
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead><tr style="color:var(--text3)">
+            <th style="text-align:left;padding:6px 0">Branch</th>
+            <th style="text-align:right;padding:6px 4px">Sales</th>
+            <th style="text-align:right;padding:6px 4px">Services</th>
+            <th style="text-align:right;padding:6px 4px">Total Revenue</th>
+            <th style="text-align:right;padding:6px 4px">Txns</th>
+          </tr></thead>
+          <tbody>
+            ${results.sort((a, b) => b.total - a.total).map(r => `
+              <tr style="border-top:1px solid var(--border)">
+                <td style="padding:7px 0;color:var(--text);font-weight:${r.name === state.branches.find(b=>b.id===state.activeBranchId)?.name?'600':'400'}">${esc(r.name)}</td>
+                <td style="text-align:right;padding:7px 4px;color:var(--text2)">${fmt(r.sales)}</td>
+                <td style="text-align:right;padding:7px 4px;color:var(--text2)">${fmt(r.services)}</td>
+                <td style="text-align:right;padding:7px 4px;color:var(--green);font-weight:600">${fmt(r.total)}</td>
+                <td style="text-align:right;padding:7px 4px;color:var(--text3)">${r.txn}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>`;
+    }
+  } catch (err) {
+    if (tableEl) tableEl.textContent = "Could not load branch data: " + err.message;
+  }
+}
+
+/* --
+   REFRESH ALL
+   -- */
+function refreshAll() {
+  renderDashboard();
+  renderInventory();
+  renderStock();
+  renderSales();
+  renderServices();
+  renderEmployees();
+  renderCustomers();
+  renderExpenses();
+}
+
+/* --
+   CUSTOMERS
+   -- */
+async function saveCustomer() {
+  const fn = v("cust-firstname"), ln = v("cust-lastname"),
+        phone = v("cust-phone"), email = v("cust-email"),
+        notes = v("cust-notes"), editId = v("cust-edit-id");
+  if (!fn) { toast("First name is required.", "error"); return; }
+  const name = `${fn} ${ln}`.trim();
+  const row = { name, phone, email, notes };
+  const ref = bizRef().collection("customers");
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, totalSpend: 0, purchaseCount: 0, lastVisit: today(), createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("cust-modal");
+    toast(editId ? "Customer updated." : "Customer added.", "success");
+  } catch (err) {
+    toast("Could not save customer: " + err.message, "error");
+  }
+}
+
+async function deleteCustomer(id) {
+  if (!confirm("Delete this customer?")) return;
+  try {
+    await bizRef().collection("customers").doc(id).delete();
+    toast("Customer deleted.", "info");
+  } catch (err) {
+    toast("Could not delete: " + err.message, "error");
+  }
+}
+
+function editCustomer(id) {
+  const c = state.customers.find(x => x.id === id);
+  if (!c) return;
+  const parts = c.name.split(" ");
+  set("cust-edit-id", id);
+  set("cust-firstname", parts[0]);
+  set("cust-lastname", parts.slice(1).join(" "));
+  set("cust-phone", c.phone);
+  set("cust-email", c.email);
+  set("cust-notes", c.notes);
+  document.getElementById("cust-modal-title").textContent = "Edit Customer";
+  openModal("cust-modal");
+}
+
+function upsertCustomerFromSale(name, phone, amount, date) {
+  const existing = state.customers.find(c => c.phone && c.phone === phone);
+  const ref = bizRef().collection("customers");
+  if (existing) {
+    ref.doc(existing.id).update({
+      totalSpend: (existing.totalSpend || 0) + amount,
+      purchaseCount: (existing.purchaseCount || 0) + 1,
+      lastVisit: date
+    });
+  } else if (name && name !== "Walk-in") {
+    ref.add({ name, phone: phone || "", email: "", notes: "Auto-added from sale", totalSpend: amount, purchaseCount: 1, lastVisit: date, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+  }
+}
+
+function renderCustomers() {
+  const tbody = document.getElementById("cust-body");
+  if (!state.customers.length) {
+    tbody.innerHTML = `<tr><td colspan="7" class="empty-row">No customers yet.</td></tr>`;
+    document.getElementById("cust-total").textContent = "0";
+    document.getElementById("cust-active").textContent = "0";
+    document.getElementById("cust-spend").textContent = fmt(0);
+    return;
+  }
+  const totalSpend = state.customers.reduce((a, c) => a + (c.totalSpend || 0), 0);
+  const active = state.customers.filter(c => (c.purchaseCount || 0) > 0).length;
+  document.getElementById("cust-total").textContent = state.customers.length;
+  document.getElementById("cust-active").textContent = active;
+  document.getElementById("cust-spend").textContent = fmt(totalSpend);
+  tbody.innerHTML = state.customers.map(c => `
+    <tr>
+      <td>${esc(c.name)}</td>
+      <td>${esc(c.phone || "-")}</td>
+      <td>${esc(c.email || "-")}</td>
+      <td><strong>${fmt(c.totalSpend || 0)}</strong></td>
+      <td>${c.purchaseCount || 0}</td>
+      <td>${fmtDate(c.lastVisit || "")}</td>
+      <td>
+        <button class="btn-icon" onclick="editCustomer('${c.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteCustomer('${c.id}')">🗑️</button>
+      </td>
+    </tr>`).join("");
+}
+
+/* --
+   EXPENSES
+   -- */
+async function saveExpense() {
+  const desc = v("exp-desc"), cat = v("exp-cat"),
+        amount = parseFloat(v("exp-amount")) || 0,
+        payment = v("exp-payment") || "Cash",
+        date = v("exp-date"), notes = v("exp-notes"),
+        editId = v("exp-edit-id");
+  if (!desc || !cat || !amount) { toast("Description, category and amount required.", "error"); return; }
+  const row = { desc, cat, amount, payment, date: date || today(), notes };
+  const ref = bizRef().collection("expenses");
+  try {
+    if (editId) {
+      await ref.doc(editId).update(row);
+    } else {
+      await ref.add({ ...row, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    closeModal("exp-modal");
+    toast(editId ? "Expense updated." : "Expense logged.", "success");
+  } catch (err) {
+    toast("Could not save expense: " + err.message, "error");
+  }
+}
+
+async function deleteExpense(id) {
+  if (!confirm("Delete this expense?")) return;
+  try {
+    await bizRef().collection("expenses").doc(id).delete();
+    toast("Expense deleted.", "info");
+  } catch (err) {
+    toast("Could not delete: " + err.message, "error");
+  }
+}
+
+function editExpense(id) {
+  const e = state.expenses.find(x => x.id === id);
+  if (!e) return;
+  set("exp-edit-id", id);
+  set("exp-desc", e.desc);
+  set("exp-cat", e.cat);
+  set("exp-amount", e.amount);
+  set("exp-payment", e.payment);
+  set("exp-date", e.date);
+  set("exp-notes", e.notes);
+  document.getElementById("exp-modal-title").textContent = "Edit Expense";
+  openModal("exp-modal");
+}
+
+function renderExpenses() {
+  const tbody = document.getElementById("exp-body");
+  const filterCat = document.getElementById("exp-filter-cat")?.value || "";
+  const thisMonth = new Date().toISOString().slice(0, 7);
+  const filtered = filterCat ? state.expenses.filter(e => e.cat === filterCat) : state.expenses;
+
+  // All totals with NaN guards
+  const expTotal      = state.expenses.reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const monthTotal    = state.expenses
+    .filter(e => (e.date || "").startsWith(thisMonth))
+    .reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const grossProfit   = state.sales.reduce((a, s) => a + (Number(s.profit) || 0), 0);
+  const svcTotal      = state.services.reduce((a, s) => a + (Number(s.cost) || 0), 0);
+  const net           = grossProfit + svcTotal - expTotal;
+
+  if (document.getElementById("exp-total")) document.getElementById("exp-total").textContent = fmt(expTotal);
+  if (document.getElementById("exp-month")) document.getElementById("exp-month").textContent = fmt(monthTotal);
+  const netEl = document.getElementById("exp-net");
+  if (netEl) {
+    netEl.textContent  = fmt(net);
+    netEl.style.color  = net >= 0 ? "var(--green)" : "var(--red)";
+  }
+
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No expenses logged yet.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = [...filtered].reverse().map(e => `
+    <tr>
+      <td>${esc(e.desc)}</td>
+      <td><span class="badge badge-orange">${esc(e.cat)}</span></td>
+      <td><strong>${fmt(Number(e.amount) || 0)}</strong></td>
+      <td><span class="badge ${e.payment === "M-Pesa" ? "badge-green" : "badge-blue"}">${esc(e.payment)}</span></td>
+      <td>${fmtDate(e.date)}</td>
+      <td>
+        <button class="btn-icon" onclick="editExpense('${e.id}')">✏️</button>
+        <button class="btn-icon danger" onclick="deleteExpense('${e.id}')">🗑️</button>
+      </td>
+    </tr>`).join("");
+}
+
+/* --
+   RECEIPT
+   -- */
+let _lastReceipt = "";
+function showReceipt(sale) {
+  const biz = state.user?.bizName || "Bizz Manager";
+  const lines = [
+    `===============================`,
+    `       ${biz.toUpperCase()}`,
+    `===============================`,
+    `Date    : ${fmtDate(sale.date)}`,
+    `Customer: ${sale.customerName || "Walk-in"}`,
+    `Employee: ${sale.empName || "-"}`,
+    `-------------------------------`,
+    `Item    : ${sale.item}`,
+    `Qty     : ${sale.qty}`,
+    `Price   : ${fmt(sale.price)}`,
+    `-------------------------------`,
+    `TOTAL   : ${fmt(sale.total)}`,
+    `Payment : ${sale.payment || "Cash"}`,
+    sale.mpesaRef ? `M-Pesa  : ${sale.mpesaRef}` : "",
+    `-------------------------------`,
+    `  Thank you for your business! `,
+    `===============================`
+  ].filter(Boolean).join("\n");
+  _lastReceipt = lines;
+  document.getElementById("receipt-content").textContent = lines;
+  openModal("receipt-modal");
+}
+function copyReceipt() {
+  navigator.clipboard?.writeText(_lastReceipt);
+  toast("Receipt copied!", "success");
+}
+function shareReceipt() {
+  if (navigator.share) { navigator.share({ title: "Receipt", text: _lastReceipt }); }
+  else copyReceipt();
+}
+// Hide receipt btn when modal closes
+const _origCloseModal = closeModal;
+
+/* --
+   ANALYTICS (Chart.js)
+   -- */
+let _charts = {};
+function filterByPeriod(arr, dateField, days, from, to) {
+  const now = new Date();
+  return arr.filter(item => {
+    if (!item[dateField]) return false;
+    const d = new Date(item[dateField] + "T00:00:00");
+    if (from && to) return d >= new Date(from) && d <= new Date(to + "T23:59:59");
+    const cutoff = new Date(now); cutoff.setDate(cutoff.getDate() - days);
+    return d >= cutoff;
+  });
+}
+
+function renderAnalytics() {
+  const days = parseInt(document.getElementById("analytics-period")?.value || "30");
+  const from = document.getElementById("analytics-from")?.value;
+  const to = document.getElementById("analytics-to")?.value;
+
+  const sales = filterByPeriod(state.sales, "date", days, from, to);
+  const services = filterByPeriod(state.services, "date", days, from, to);
+  const expenses = filterByPeriod(state.expenses, "date", days, from, to);
+
+  const salesRev    = sales.reduce((a, s) => a + (Number(s.total)  || 0), 0);
+  const grossProfit = sales.reduce((a, s) => a + (Number(s.profit) || 0), 0);
+  const svcRev      = services.reduce((a, s) => a + (Number(s.cost) || 0), 0);
+  const expTotal    = expenses.reduce((a, e) => a + (Number(e.amount) || 0), 0);
+  const revenue     = salesRev + svcRev;
+  const net         = grossProfit + svcRev - expTotal;
+  const margin      = revenue > 0 ? ((net / revenue) * 100).toFixed(1) : "0.0";
+
+  document.getElementById("an-sales").textContent    = fmt(salesRev);
+  document.getElementById("an-sales-sub").textContent = sales.length + " transactions";
+  document.getElementById("an-svc").textContent      = fmt(svcRev);
+  document.getElementById("an-svc-sub").textContent  = services.length + " records";
+  document.getElementById("an-exp").textContent      = fmt(expTotal);
+  document.getElementById("an-exp-sub").textContent  = expenses.length + " entries";
+  document.getElementById("an-net").textContent      = fmt(net);
+  document.getElementById("an-net-sub").textContent  = net >= 0
+    ? `Profitable ✓ · ${margin}% margin`
+    : `Loss ✗ · ${margin}% margin`;
+  document.getElementById("an-net").style.color = net >= 0 ? "var(--green)" : "var(--red)";
+
+  // Revenue vs Expenses bar chart
+  const revExpCtx = document.getElementById("chart-rev-exp")?.getContext("2d");
+  if (revExpCtx) {
+    if (_charts.revExp) _charts.revExp.destroy();
+    _charts.revExp = new Chart(revExpCtx, {
+      type: "bar",
+      data: {
+        labels: ["Sales", "Services", "Total Revenue", "Expenses", "Net Profit"],
+        datasets: [{
+          data: [salesRev, svcRev, revenue, expTotal, net],
+          backgroundColor: ["#4f7bff","#a855f7","#22c55e","#ef4444", net >= 0 ? "#22c55e" : "#ef4444"],
+          borderRadius: 6
+        }]
+      },
+      options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => "KES " + Number(v).toLocaleString("en-KE") }, grid: { color: "#2a3347" }, ticks: { color: "#8b93a8" } }, x: { grid: { display: false }, ticks: { color: "#8b93a8" } } }, responsive: true }
+    });
+  }
+
+  // Payment methods pie chart
+  const payCtx = document.getElementById("chart-payment")?.getContext("2d");
+  if (payCtx) {
+    const payMap = {};
+    sales.forEach(s => { const p = s.payment || "Cash"; payMap[p] = (payMap[p] || 0) + (s.total || 0); });
+    if (_charts.pay) _charts.pay.destroy();
+    _charts.pay = new Chart(payCtx, {
+      type: "doughnut",
+      data: {
+        labels: Object.keys(payMap),
+        datasets: [{ data: Object.values(payMap), backgroundColor: ["#4f7bff","#22c55e","#f59e0b","#a855f7"], borderWidth: 0 }]
+      },
+      options: { plugins: { legend: { labels: { color: "#8b93a8", font: { size: 11 } } } }, responsive: true }
+    });
+  }
+
+  // Top items horizontal bar
+  const itemCtx = document.getElementById("chart-top-items")?.getContext("2d");
+  if (itemCtx) {
+    const itemMap = {};
+    sales.forEach(s => { itemMap[s.item] = (itemMap[s.item] || 0) + (s.total || 0); });
+    const sorted = Object.entries(itemMap).sort((a, b) => b[1] - a[1]).slice(0, 8);
+    if (_charts.items) _charts.items.destroy();
+    _charts.items = new Chart(itemCtx, {
+      type: "bar",
+      data: {
+        labels: sorted.map(e => e[0]),
+        datasets: [{ data: sorted.map(e => e[1]), backgroundColor: "#4f7bff", borderRadius: 4 }]
+      },
+      options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => "KES " + Number(v).toLocaleString("en-KE"), color: "#8b93a8" }, grid: { color: "#2a3347" } }, y: { ticks: { color: "#8b93a8" }, grid: { display: false } } }, responsive: true }
+    });
+  }
+}
+
+/* --
+   UTILITIES
+   -- */
+function v(id) { return (document.getElementById(id)?.value || "").trim(); }
+function set(id, val) { const el = document.getElementById(id); if (el) el.value = val; }
+function fmt(n) { return "KES " + (Number(n) || 0).toLocaleString("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function esc(s) { return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function today() { return new Date().toISOString().split("T")[0]; }
+function fmtDate(d) {
+  if (!d) return "-";
+  const dt = new Date(d + "T00:00:00");
+  return dt.toLocaleDateString("en-KE", { day: "numeric", month: "short", year: "numeric" });
+}
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.remove("hidden");
+  setTimeout(() => el.classList.add("hidden"), 4000);
+}
+function toast(msg, type = "info") {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = `toast ${type}`;
+  t.classList.remove("hidden");
+  setTimeout(() => t.classList.add("hidden"), 3000);
+}
+
+/* --
+   KEYBOARD SHORTCUTS
+   -- */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".modal-overlay:not(.hidden)").forEach(m => {
+      closeModal(m.id);
+    });
+  }
+});
+
+/* --
+   FIREBASE SETUP GUIDE
+   --
+   1. Go to https://console.firebase.google.com → Add project.
+   2. Build → Authentication → Get started → enable the
+      "Email/Password" sign-in provider.
+   3. Build → Firestore Database → Create database
+      (any region is fine; pick the one closest to you).
+   4. Project settings (gear icon) → General → Your apps →
+      Add app → Web ( </> ) → register it → copy the
+      firebaseConfig object → paste it over the placeholder
+      values near the top of this file.
+   5. Firestore Database → Rules tab → replace the default
+      rules with the ones below → Publish:
+
+      rules_version = '2';
+      service cloud.firestore {
+        match /databases/{database}/documents {
+          match /businesses/{businessId} {
+            allow read, create, update: if request.auth != null
+              && request.auth.uid == businessId;
+
+            match /{collection}/{docId} {
+              allow read, write: if request.auth != null
+                && request.auth.uid == businessId;
+            }
+
+            match /branches/{branchId} {
+              allow read, write: if request.auth != null
+                && request.auth.uid == businessId;
+
+              match /{collection}/{docId} {
+                allow read, write: if request.auth != null
+                  && request.auth.uid == businessId;
+              }
+            }
+          }
+        }
+      }
+
+      This keeps every business's data private to its own
+      owner: a doc at businesses/{uid} holds the profile, and
+      everything under businesses/{uid}/inventory, /stock,
+      /sales, /services, /employees is scoped the same way.
+   6. Save this file and push it to your GitHub repo as before
+      (jaycliffe/Collins-) — GitHub Pages keeps serving it, no
+      separate hosting step needed since Firebase is reached
+      directly from the browser via the SDK above.
+   -- */
+
+</script>
+</body>
+</html>
