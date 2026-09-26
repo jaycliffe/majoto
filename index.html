@@ -1177,7 +1177,7 @@ tbody tr:hover td { background: var(--bg3); }
     <div class="loader-bar"></div>
   </div>
 
-  <div class="loader-powered">Powered by &nbsp;<strong>Tech Anatomy</strong></div>
+  <div class="loader-powered">Powered by &nbsp;<strong>TechTone Labs</strong></div>
 </div>
 
 <script>
@@ -5738,57 +5738,6 @@ async function checkRecurringExpenses() {
     toast(`Recurring expense logged: ${t.description}`, "info");
   }
 }
-
-/* --
-   FIREBASE SETUP GUIDE
-   --
-   1. Go to https://console.firebase.google.com → Add project.
-   2. Build → Authentication → Get started → enable the
-      "Email/Password" sign-in provider.
-   3. Build → Firestore Database → Create database
-      (any region is fine; pick the one closest to you).
-   4. Project settings (gear icon) → General → Your apps →
-      Add app → Web ( </> ) → register it → copy the
-      firebaseConfig object → paste it over the placeholder
-      values near the top of this file.
-   5. Firestore Database → Rules tab. NOTE: Bizz Manager now uses account
-      approvals — publish the rules in firestore-rules.txt (they replace
-      the ones below, which are kept only for reference):
-
-      rules_version = '2';
-      service cloud.firestore {
-        match /databases/{database}/documents {
-          match /businesses/{businessId} {
-            allow read, create, update: if request.auth != null
-              && request.auth.uid == businessId;
-
-            match /{collection}/{docId} {
-              allow read, write: if request.auth != null
-                && request.auth.uid == businessId;
-            }
-
-            match /branches/{branchId} {
-              allow read, write: if request.auth != null
-                && request.auth.uid == businessId;
-
-              match /{collection}/{docId} {
-                allow read, write: if request.auth != null
-                  && request.auth.uid == businessId;
-              }
-            }
-          }
-        }
-      }
-
-      This keeps every business's data private to its own
-      owner: a doc at businesses/{uid} holds the profile, and
-      everything under businesses/{uid}/inventory, /stock,
-      /sales, /services, /employees is scoped the same way.
-   6. Save this file and push it to your GitHub repo as before
-      (jaycliffe/Collins-) — GitHub Pages keeps serving it, no
-      separate hosting step needed since Firebase is reached
-      directly from the browser via the SDK above.
-   -- */
 
 </script>
 <script>
